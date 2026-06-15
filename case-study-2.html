@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automating Rates Derivatives Trading — Maggie Chen</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: system-ui, sans-serif;
+    background: #ffffff;
+    color: #111111;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  nav {
+    padding: 1.25rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e5e5e5;
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-logo { font-size: 1rem; font-weight: 600; text-decoration: none; color: #111; }
+  .nav-back { font-size: 0.8rem; color: #555; text-decoration: none; }
+  .nav-back:hover { color: #111; text-decoration: underline; }
+
+  .hero {
+    padding: 5rem 3rem 4rem;
+    border-bottom: 1px solid #e5e5e5;
+    max-width: 860px;
+  }
+  .eyebrow { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.18em; color: #888; font-weight: 600; margin-bottom: 1rem; }
+  h1 { font-size: clamp(1.75rem, 3.5vw, 2.75rem); font-weight: 700; line-height: 1.15; color: #000; margin-bottom: 1.5rem; }
+
+  .meta-grid {
+    display: flex; flex-wrap: wrap; gap: 2rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 2rem;
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 3px; }
+  .meta-item span { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.14em; color: #888; font-weight: 600; }
+  .meta-item strong { font-size: 0.9rem; color: #111; font-weight: 500; }
+
+  .outcome-bar {
+    display: flex; flex-wrap: wrap; gap: 1.5rem;
+    background: #f5f5f5;
+    border: 1px solid #e5e5e5;
+    padding: 1.25rem 1.5rem;
+  }
+  .outcome-item { display: flex; flex-direction: column; gap: 2px; }
+  .outcome-num { font-size: 1.5rem; font-weight: 700; color: #000; }
+  .outcome-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: #666; }
+
+  .content { max-width: 860px; padding: 0 3rem; }
+
+  .section { padding: 3.5rem 0; border-bottom: 1px solid #e5e5e5; }
+  .section:last-child { border-bottom: none; }
+
+  .section-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.2em; color: #888; font-weight: 600; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.4rem; font-weight: 700; color: #000; margin-bottom: 1.25rem; }
+  h3 { font-size: 1rem; font-weight: 700; color: #000; margin: 1.75rem 0 0.5rem; }
+
+  p { color: #333; margin-bottom: 1rem; font-size: 0.95rem; }
+  p strong { color: #000; font-weight: 600; }
+
+  .pullquote {
+    border-left: 3px solid #111;
+    padding: 0.75rem 1.25rem;
+    margin: 1.5rem 0;
+    background: #f9f9f9;
+    font-style: italic;
+    color: #222;
+    font-size: 0.95rem;
+  }
+
+  .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+  .insight { border: 1px solid #e5e5e5; padding: 1.25rem; }
+  .insight-num { font-size: 1.4rem; font-weight: 700; color: #000; margin-bottom: 0.25rem; }
+  .insight-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: #888; margin-bottom: 0.5rem; font-weight: 600; }
+  .insight p { font-size: 0.85rem; color: #444; margin: 0; }
+
+  .theme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+  .theme { border: 1px solid #e5e5e5; padding: 1.25rem; border-top: 3px solid #111; }
+  .theme-title { font-size: 0.85rem; font-weight: 700; color: #000; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.75rem; }
+  .theme ul { list-style: disc; padding-left: 1rem; }
+  .theme ul li { font-size: 0.82rem; color: #444; line-height: 1.55; margin-bottom: 0.25rem; }
+
+  .challenge { border: 1px solid #e5e5e5; padding: 1.5rem; margin: 1.25rem 0; }
+  .challenge-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.75rem; }
+  .challenge-num { font-size: 1.4rem; font-weight: 700; color: #000; }
+  .challenge-title { font-size: 1rem; font-weight: 700; color: #000; }
+  .challenge p { font-size: 0.88rem; color: #444; margin-bottom: 0.75rem; line-height: 1.65; }
+  .challenge p:last-child { margin-bottom: 0; }
+
+  .decision-box {
+    border: 1.5px solid #111;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    background: #f9f9f9;
+  }
+  .decision-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: #888; margin-bottom: 0.4rem; }
+  .decision-box p { font-size: 0.9rem; color: #222; margin: 0; line-height: 1.65; }
+  .decision-box strong { color: #000; }
+
+  .pivot-banner {
+    background: #111;
+    color: #fff;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .pivot-banner .pivot-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: #888; margin-bottom: 0.5rem; }
+  .pivot-banner p { color: rgba(255,255,255,0.85); font-size: 0.9rem; margin: 0; line-height: 1.65; }
+  .pivot-banner strong { color: #fff; }
+
+  .placeholder {
+    background: #f5f5f5;
+    border: 1px dashed #ccc;
+    padding: 2.5rem;
+    text-align: center;
+    color: #888;
+    font-size: 0.85rem;
+    margin: 1.5rem 0;
+    border-radius: 2px;
+  }
+
+  .reg-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #e5e5e5; border: 1px solid #e5e5e5; margin: 1.5rem 0; }
+  .reg-step { background: #fff; padding: 1rem; }
+  .reg-step-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #888; margin-bottom: 0.35rem; }
+  .reg-step-title { font-size: 0.9rem; font-weight: 700; color: #000; margin-bottom: 0.35rem; }
+  .reg-step-desc { font-size: 0.78rem; color: #555; line-height: 1.5; }
+
+  .scope-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.85rem; }
+  .scope-table th { background: #111; color: #fff; padding: 0.6rem 0.85rem; text-align: left; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+  .scope-table td { padding: 0.65rem 0.85rem; border-bottom: 1px solid #e5e5e5; color: #333; vertical-align: top; }
+  .scope-table tr:last-child td { border-bottom: none; }
+  .scope-table tr.selected td { background: #f0faf4; }
+  .badge { display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 2px 8px; border-radius: 2px; }
+  .badge.green { background: #d4edda; color: #1a5c2e; }
+  .badge.gray { background: #f0f0f0; color: #666; }
+
+  .placeholder-note {
+    background: #fffbe6;
+    border: 1px solid #e5d88a;
+    border-left: 3px solid #c9a800;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    font-size: 0.8rem;
+    color: #665c00;
+  }
+  .placeholder-note strong { display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.3rem; color: #665c00; }
+
+  .case-footer {
+    padding: 3rem;
+    border-top: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .case-footer a { font-size: 0.8rem; text-decoration: none; color: #555; border-bottom: 1px solid #ddd; padding-bottom: 2px; }
+  .case-footer a:hover { color: #111; }
+
+  figure { margin: 1.5rem 0; }
+  figure img { width: 100%; border: 1px solid #e5e5e5; display: block; }
+  figcaption { font-size: 0.75rem; color: #888; margin-top: 0.6rem; line-height: 1.5; }
+
+  @media (max-width: 768px) {
+    nav, .hero, .content { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .theme-grid, .insight-grid, .reg-steps { grid-template-columns: 1fr; }
+    .case-footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Maggie Chen</a>
+  <a href="index.html#work" class="nav-back">← Back to Work</a>
+</nav>
+
+<div class="hero">
+  <p class="eyebrow">Case Study 02 · JPMorgan Execute</p>
+  <h1>From Fragmented to Unified: Automating Rates Derivatives Trading</h1>
+  <div class="meta-grid">
+    <div class="meta-item"><span>Role</span><strong>Design & Research Lead</strong></div>
+    <div class="meta-item"><span>Timeline</span><strong>End-to-end</strong></div>
+    <div class="meta-item"><span>Team</span><strong>Solo designer, cross-functional partners</strong></div>
+    <div class="meta-item"><span>Platform</span><strong>JPMorgan Execute</strong></div>
+    <div class="meta-item"><span>Type</span><strong>Zero-to-one, internal sales workflow</strong></div>
+  </div>
+  <div class="outcome-bar">
+    <div class="outcome-item"><div class="outcome-num">Pending</div><div class="outcome-label">Outcome — in progress</div></div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- BACKGROUND -->
+  <div class="section">
+    <p class="section-label">Background</p>
+    <h2>A 30-year-old tool, and the mandate to replace it</h2>
+    <p>Rates derivatives salespeople at JPMorgan have relied on a legacy application called Sapphire for three decades. It's dense, keyboard-shortcut-driven, and deeply embedded in how they work — structuring trades, managing client inquiries, coordinating with traders, and booking deals under real time pressure.</p>
+    <p>The mandate I started with was to understand Sapphire deeply enough to decommission it — to map what salespeople actually did in it before pulling the plug. What followed was a comprehensive discovery research effort with salespeople across the trading floor, including rates derivatives, credit, and other asset classes.</p>
+    <p>A year into that work, the objective shifted.</p>
+  </div>
+
+  <!-- DISCOVERY -->
+  <div class="section">
+    <p class="section-label">Discovery</p>
+    <h2>Understanding the people before redesigning the tool</h2>
+    <p>I conducted in-depth research with salespeople on the trading floor — observing their workflows, interviewing them about their tools, and mapping how they actually moved through a day. The goal was to understand not just what Sapphire did, but why people still depended on it after 30 years.</p>
+    <p>After synthesizing the research through affinity mapping, four distinct themes emerged:</p>
+
+    <figure>
+      <img src="affinity-map.png" alt="Affinity map showing four research themes: feeling in control, workflow inefficiencies, lack of system confidence, and cognitive load management" />
+      <figcaption>Final clustering from discovery research — four themes across interviews with rates derivatives salespeople on the trading floor.</figcaption>
+    </figure>
+
+    <div class="theme-grid">
+      <div class="theme">
+        <div class="theme-title">I want to feel in control of the trades I work on</div>
+        <ul>
+          <li>Monitor live market levels constantly</li>
+          <li>Validate trade details against client inquiries</li>
+          <li>Sapphire's features feel critical to doing the job</li>
+          <li>Prefer voice for big trades — relationship and nuance matter</li>
+        </ul>
+      </div>
+      <div class="theme">
+        <div class="theme-title">Inefficiencies in the current workflow</div>
+        <ul>
+          <li>Repetitive manual data entry across multiple tools</li>
+          <li>No way to save templates or reuse models</li>
+          <li>Slow, fragmented booking process</li>
+          <li>Takes too long to quote certain swaps</li>
+        </ul>
+      </div>
+      <div class="theme">
+        <div class="theme-title">I lack confidence in current and future systems</div>
+        <ul>
+          <li>Sapphire freezes and has frequent bugs</li>
+          <li>Incorrect default values cause errors</li>
+          <li>Skeptical the new tool can handle trade nuance</li>
+          <li>Doubt CT can accurately parse trade inquiries</li>
+        </ul>
+      </div>
+      <div class="theme">
+        <div class="theme-title">Cognitive load management</div>
+        <ul>
+          <li>Constantly switching attention across systems</li>
+          <li>Personal color-coding systems to track trades</li>
+          <li>Quote-to-book flow needs to be more automated</li>
+          <li>Relies on middle office for misses and amendments</li>
+        </ul>
+      </div>
+    </div>
+
+    <p>The picture that emerged was of skilled, fast-moving people operating under genuine pressure — and whose tools were working against them at almost every stage. Sapphire had survived 30 years not because it was good, but because <strong>nothing better had been built for this specific workflow.</strong></p>
+  </div>
+
+  <!-- THE PIVOT -->
+  <div class="section">
+    <p class="section-label">The Pivot</p>
+    <h2>The mandate expands</h2>
+    <p>About a year into the research, the business objective shifted significantly. Decommissioning Sapphire was no longer the whole story.</p>
+
+    <div class="pivot-banner">
+      <div class="pivot-label">Scope change</div>
+      <p>The new goal: <strong>move the entire sales workflow onto Execute</strong> — JPMorgan's client-facing single-dealer platform — and unify the fragmented tools salespeople relied on into one cohesive experience. The aim was to automate the trading flow end-to-end, speed up execution, and free up sales time for higher-value work: building client relationships, generating trade ideas, and opening new opportunities.</p>
+    </div>
+
+    <p>This was a significant expansion in scope — from replacing one tool to redesigning an entire workflow on a platform that had been built primarily for clients, not internal salespeople. But the research I'd already done remained directly relevant. The users were the same, the asset class was the same, the pain points were the same. The platform had changed. The problem hadn't.</p>
+  </div>
+
+  <!-- DESIGN CHALLENGES -->
+  <div class="section">
+    <p class="section-label">Design Challenges</p>
+    <h2>Three problems that shaped the project</h2>
+    <p>Moving a 30-year sales workflow onto a new platform wasn't a single design problem — it was several, layered on top of each other. Three stood out as the ones that defined the project.</p>
+
+    <!-- CHALLENGE 1 -->
+    <div class="challenge">
+      <div class="challenge-header">
+        <span class="challenge-num">01</span>
+        <span class="challenge-title">Regulatory infrastructure — a prerequisite, not a feature</span>
+      </div>
+      <p>Before any sales workflow could exist on Execute, the regulatory foundation had to be in place. Introducing internal sales users to a client-facing platform required satisfying a set of non-negotiable compliance requirements: KYC (Know Your Customer) checks to verify client identity and eligibility, suitability assessments to confirm a trade is appropriate for a given client, and MiFID II pre- and post-trade transparency obligations that govern how derivative trades are reported and disclosed.</p>
+      <p>This was a quarter of design-to-dev work — not to build the product, but to unlock the ability to build it. Without passing regulatory checks, no trade could legally proceed on the platform.</p>
+      <p>Within that constraint, I focused on reducing friction in the compliance gate itself. Completed checks are hidden by default to reduce cognitive load. Errored checks auto-expand so users land directly on what needs attention without scanning. Once all checks clear, the flow advances automatically — no extra click needed.</p>
+
+      <div class="reg-steps">
+        <div class="reg-step">
+          <div class="reg-step-label">Design decision</div>
+          <div class="reg-step-title">Hide completed checks</div>
+          <div class="reg-step-desc">Passed checks collapse by default — users only see what still needs action, reducing scan time and cognitive load.</div>
+        </div>
+        <div class="reg-step">
+          <div class="reg-step-label">Design decision</div>
+          <div class="reg-step-title">Auto-expand errors</div>
+          <div class="reg-step-desc">Failed checks open automatically, surfacing exactly what needs to be resolved without requiring the user to hunt for it.</div>
+        </div>
+        <div class="reg-step">
+          <div class="reg-step-label">Design decision</div>
+          <div class="reg-step-title">Auto-advance on green</div>
+          <div class="reg-step-desc">Once all checks pass, the flow moves forward automatically — removing an unnecessary confirmation step in an already high-friction process.</div>
+        </div>
+      </div>
+
+      <p style="font-size:0.85rem; color:#555; font-style:italic;">It wasn't glamorous work. But a clunky compliance gate would have poisoned the first impression of the entire product — and for a sales tool where trust in the system is already fragile, that mattered.</p>
+    </div>
+
+    <!-- CHALLENGE 2 -->
+    <div class="challenge">
+      <div class="challenge-header">
+        <span class="challenge-num">02</span>
+        <span class="challenge-title">Structuring on the ticket — the 30-year problem</span>
+      </div>
+      <p>Sapphire has been in use for 30 years because rates derivatives structuring is genuinely hard. A single swap trade can involve dozens of configurable fields — accrual basis, frequency, payment schedules, day count conventions, roll dates, FX parameters, and more. The number of possible combinations is enormous, and the legacy tool exposed almost all of them at once.</p>
+
+      <figure>
+        <img src="sapphire-fields.png" alt="Analysis of Sapphire fields showing the complexity of rates derivatives structuring, with day 1 must-have fields and existing keyboard shortcuts" />
+        <figcaption>Fields analysis from Sapphire — mapping which fields are required for day 1, which are asset-class specific, and the keyboard shortcuts salespeople have built muscle memory around over decades.</figcaption>
+      </figure>
+
+      <p>On top of field complexity, real-time pricing added another layer of difficulty. Market rates move fast. In Sapphire, sales had to manually refresh pricing on their side and send a new request to trading to get an updated rate — a process that introduced lag at exactly the moment when speed was critical. If a client came back within 10–20 seconds of a quote, the price might already be stale.</p>
+
+      <div class="insight-grid">
+        <div class="insight">
+          <div class="insight-num">Problem</div>
+          <div class="insight-label">Too many fields</div>
+          <p>Exposing all structuring options at once created overwhelming cognitive load — especially for standard swaps where most fields aren't needed.</p>
+        </div>
+        <div class="insight">
+          <div class="insight-num">Problem</div>
+          <div class="insight-label">Stale pricing</div>
+          <p>Manual market data refresh meant sales were often quoting outdated rates — creating risk when clients responded faster than the refresh cycle.</p>
+        </div>
+      </div>
+
+      <h3>The design response</h3>
+      <p>Rather than replicating Sapphire's field density, I took a selective approach: surface the fields used in the vast majority of standard swap trades, and progressively disclose the rest. Fields are organized by frequency of use, with less-common options accessible but not in the default view.</p>
+      <p>For pricing, I worked with the team to build live market data directly into the ticket — so sales always see the current rate without needing to manually refresh or make a separate request to trading. A short-key to request a fresh price from trading is also available inline, keeping the workflow fast without adding steps.</p>
+
+      <div class="decision-box">
+        <div class="decision-label">Design principle</div>
+        <p>The goal wasn't to simplify rates derivatives structuring — that's not possible. The goal was to make the <strong>common case fast and the complex case accessible</strong>. Standard swaps should feel effortless. Everything else should be one step away, not buried or removed.</p>
+      </div>
+    </div>
+
+    <!-- CHALLENGE 3 -->
+    <div class="challenge">
+      <div class="challenge-header">
+        <span class="challenge-num">03</span>
+        <span class="challenge-title">Scoping for day 1 — knowing what not to build first</span>
+      </div>
+      <p>Rates derivatives covers a wide spectrum of products — from plain vanilla interest rate swaps to highly customized non-linear instruments. Building for all of it on day 1 wasn't feasible, and attempting to would have delayed the launch of anything valuable.</p>
+      <p>The scoping decision was grounded in two data sources working together: the user research, which surfaced where friction was highest, and trade volume data, which confirmed where value was concentrated.</p>
+
+      <table class="scope-table">
+        <thead>
+          <tr>
+            <th>Product type</th>
+            <th>Trade volume</th>
+            <th>Structuring complexity</th>
+            <th>Dev effort</th>
+            <th>Day 1?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="selected">
+            <td><strong>Standard swaps</strong></td>
+            <td>Majority of volume</td>
+            <td>Moderate — predictable fields</td>
+            <td>Lower</td>
+            <td><span class="badge green">Selected</span></td>
+          </tr>
+          <tr>
+            <td>Non-linear swaps</td>
+            <td>Smaller share</td>
+            <td>High — heavy customization</td>
+            <td>Significantly higher</td>
+            <td><span class="badge gray">Later phase</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="decision-box">
+        <div class="decision-label">Why standard swaps first</div>
+        <p>Standard swaps account for the majority of trading volume — meaning day 1 would immediately cover the most-used workflows. They also involve more predictable structuring, which reduces dev complexity and shortens time to ship. Starting here meant <strong>delivering real value fast</strong> rather than attempting to boil the ocean and launching nothing meaningful.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESIGN -->
+  <div class="section">
+    <p class="section-label">Design</p>
+    <h2>From workflow to interface</h2>
+    <p>With the scope defined, the regulatory foundation established, and the structuring approach clear, the design work focused on bringing the full sales flow — from receiving a client inquiry to booking a confirmed trade — into a single, unified ticket on Execute.</p>
+
+    <div class="placeholder">[ Ticket flow designs — coming soon ]</div>
+    <div class="placeholder">[ Structuring interface — coming soon ]</div>
+    <div class="placeholder">[ Regulatory flow — coming soon ]</div>
+  </div>
+
+  <!-- OUTCOMES -->
+  <div class="section">
+    <p class="section-label">Outcomes</p>
+    <h2>Impact</h2>
+
+    <div class="placeholder-note">
+      <strong>✏ Placeholder — outcome pending</strong>
+      This project is still in progress. This section will be updated with outcome metrics, adoption data, and a reflection on what worked once the product launches.
+    </div>
+
+    <p>The project is currently in active development. The regulatory infrastructure has shipped. Standard swap structuring and the unified ticket flow are in build.</p>
+
+    <p>The measure of success for day 1 will be straightforward: do salespeople use it instead of Sapphire for standard swaps? If the answer is yes — and if it's faster, less error-prone, and requires fewer tools to complete a trade — the foundation will be in place to expand to more complex instruments in subsequent phases.</p>
+  </div>
+
+</div>
+
+<div class="case-footer">
+  <a href="index.html#work">← Back to Work</a>
+  <a href="case-study-1.html">← Previous: Bond Trading</a>
+</div>
+
+</body>
+</html>
