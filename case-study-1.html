@@ -8,19 +8,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --accent: #2d4a3e;
-    --accent-light: #eef2ef;
-    --accent-muted: #5a7d6d;
-    --bg: #ffffff;
-    --bg-warm: #faf9f7;
+    --accent: #606c38;
+    --accent-light: #f0f1e8;
+    --accent-muted: #606c38;
+    --bg: #f7f6f3;
+    --bg-warm: #f0efe9;
     --text: #1a1a1a;
-    --text-body: #333;
+    --text-body: #3a3a3a;
     --text-muted: #888;
-    --border: #e8e6e3;
-    --border-light: #f0eee9;
+    --border: #e0dcc8;
+    --border-light: #eae8da;
     --red: #a63d2f;
-    --green: #2d5a3e;
+    --green: #283618;
     --amber: #b38520;
+    --navy: #003049;
+    --sky: #669bbc;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -45,15 +47,15 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    backdrop-filter: blur(8px);
-    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    background: rgba(247,246,243,0.92);
   }
   .nav-logo {
     font-family: 'Manrope', sans-serif;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
     text-decoration: none;
-    color: var(--text);
+    color: #283618;
     letter-spacing: -0.01em;
   }
   .nav-back { font-size: 0.78rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
@@ -69,7 +71,7 @@
     font-size: 0.68rem;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    color: var(--accent);
+    color: #003049;
     font-weight: 600;
     margin-bottom: 1.25rem;
   }
@@ -102,7 +104,7 @@
     border-radius: 4px;
   }
   .outcome-item { display: flex; flex-direction: column; gap: 2px; }
-  .outcome-num { font-family: 'Manrope', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+  .outcome-num { font-family: 'Manrope', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--sky); }
   .outcome-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-muted); font-weight: 600; }
 
   /* CONTENT */
@@ -116,7 +118,7 @@
     font-size: 0.62rem;
     text-transform: uppercase;
     letter-spacing: 0.22em;
-    color: var(--accent);
+    color: #003049;
     font-weight: 600;
     margin-bottom: 0.5rem;
   }
@@ -224,17 +226,17 @@
     border-top: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
-    background: var(--bg-warm);
+    background: #003049;
   }
   .case-footer a {
     font-size: 0.82rem;
-    color: var(--text-muted);
+    color: rgba(247,246,243,0.7);
     text-decoration: none;
     transition: color 0.2s;
     padding-bottom: 2px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid rgba(247,246,243,0.2);
   }
-  .case-footer a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .case-footer a:hover { color: #f7f6f3; border-bottom-color: #f7f6f3; }
 </style>
 </head>
 <body>
@@ -249,7 +251,7 @@
   <p class="eyebrow">Case Study 01 · JPMorgan Execute</p>
   <h1>Digitizing High-Friction Bond Trading for Institutional Clients</h1>
   <div class="meta-grid">
-    <div class="meta-item"><span>Role</span><strong>Design & Research Lead</strong></div>
+    <div class="meta-item"><span>Role</span><strong>Lead Designer & Researcher</strong></div>
     <div class="meta-item"><span>Timeline</span><strong>~1 year, end-to-end</strong></div>
     <div class="meta-item"><span>Team</span><strong>Solo designer, cross-functional partners</strong></div>
     <div class="meta-item"><span>Platform</span><strong>JPMorgan Execute</strong></div>
@@ -300,7 +302,7 @@
 
     <figure style="margin: 1.5rem 0;">
       <img src="workflow-diagram.png" alt="Workflow diagram mapping the current chat-based BWIC trading flow" style="width: 100%; border: 1px solid #e5e5e5; display: block;" />
-      <figcaption style="font-size: 0.75rem; color: #888; margin-top: 0.6rem; line-height: 1.5;">Flow diagram drawn during engineering interviews. Multiple branching paths, counters, and fallback states, all handled manually today.</figcaption>
+      <figcaption style="font-size: 0.68rem; color: var(--text-muted); margin-top: 0.5rem;">Workflow diagram drawn during engineering interviews.</figcaption>
     </figure>
 
     <p>What emerged explained everything:</p>
@@ -344,27 +346,47 @@
       <strong>Fallback loop:</strong> If the winning client fails regulatory clearance or the second-round price falls off, the BWIC returns to market and reopens for bidding. Currently invisible in existing tooling.
     </div>
 
-    <p style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.18em; color:#888; margin:2rem 0 0.75rem;">Three problems to solve</p>
-    <div class="callouts">
-      <div class="callout">
-        <div class="callout-icon">01</div>
-        <div class="callout-title">Fragmented workflow</div>
-        <div class="callout-desc">Clients juggle email, IB Chat, Excel, OMS, and phone with no single source of truth. Every stage of the trade lives in a different tool.</div>
-      </div>
-      <div class="callout">
-        <div class="callout-icon">02</div>
-        <div class="callout-title">No status visibility</div>
-        <div class="callout-desc">No unified view of where bids stand. Clients can't tell what needs their attention, what's waiting, or when an action is final and irreversible.</div>
-      </div>
-      <div class="callout">
-        <div class="callout-icon">03</div>
-        <div class="callout-title">No structured path from bid to trade</div>
-        <div class="callout-desc">The second-round negotiation, spot pricing, and final confirmation are all handled informally over chat. No system defines the stages or guides either side through them.</div>
-      </div>
-    </div>
+    <p style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.18em; color:#888; margin:2rem 0 1rem;">Three problems to solve</p>
 
-    <div class="hmw"><span>How might we...</span><p>Centralize the entire BWIC workflow into a single view where clients can browse, bid, track, and confirm without switching tools?</p></div>
-    <div class="hmw"><span>How might we...</span><p>Make every status and required action immediately clear, with an unambiguous signal when a decision is final?</p></div>
+    <div style="display:flex; flex-direction:column; gap:1px; border:1px solid var(--border); border-radius:4px; overflow:hidden;">
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0;">
+        <div style="padding:1.25rem 1.5rem; background:var(--bg); border-right:1px solid var(--border);">
+          <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--red); margin-bottom:0.4rem;">01 Pain point</div>
+          <div style="font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:0.35rem;">Fragmented workflow</div>
+          <div style="font-size:0.82rem; color:var(--text-body); line-height:1.6;">Clients juggle email, IB Chat, Excel, OMS, and phone with no single source of truth. Every stage of the trade lives in a different tool.</div>
+        </div>
+        <div style="padding:1.25rem 1.5rem; background:var(--accent-light);">
+          <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--accent-muted); margin-bottom:0.4rem;">How might we...</div>
+          <div style="font-size:0.88rem; color:var(--accent); line-height:1.6;">Centralize the entire BWIC workflow into a single view where clients can browse, bid, track, and confirm without switching tools?</div>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:1px solid var(--border);">
+        <div style="padding:1.25rem 1.5rem; background:var(--bg); border-right:1px solid var(--border);">
+          <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--red); margin-bottom:0.4rem;">02 Pain point</div>
+          <div style="font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:0.35rem;">No status visibility</div>
+          <div style="font-size:0.82rem; color:var(--text-body); line-height:1.6;">No unified view of where bids stand. Clients can't tell what needs their attention, what's waiting, or when an action is final and irreversible.</div>
+        </div>
+        <div style="padding:1.25rem 1.5rem; background:var(--accent-light);">
+          <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--accent-muted); margin-bottom:0.4rem;">How might we...</div>
+          <div style="font-size:0.88rem; color:var(--accent); line-height:1.6;">Make every status and required action immediately clear, with an unambiguous signal when a decision is final?</div>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:1px solid var(--border);">
+        <div style="padding:1.25rem 1.5rem; background:var(--bg); border-right:1px solid var(--border);">
+          <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--red); margin-bottom:0.4rem;">03 Pain point</div>
+          <div style="font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:0.35rem;">No structured path from bid to trade</div>
+          <div style="font-size:0.82rem; color:var(--text-body); line-height:1.6;">The second-round negotiation, spot pricing, and final confirmation are all handled informally over chat. No system defines the stages or guides either side through them.</div>
+        </div>
+        <div style="padding:1.25rem 1.5rem; background:var(--accent-light);">
+          <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--accent-muted); margin-bottom:0.4rem;">How might we...</div>
+          <div style="font-size:0.88rem; color:var(--accent); line-height:1.6;">Define the stages of a BWIC from bid to settlement so both sides know exactly where they are and what comes next?</div>
+        </div>
+      </div>
+
+    </div>
   </div>
 
   <!-- REDEFINING THE FLOW -->
@@ -514,37 +536,19 @@
       <img src="iteration-2-screens.png" alt="Iteration 2 ticket states with revised labels" style="width:100%;border:1px solid #e5e5e5;display:block;border-radius:2px;" />
     </figure>
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.85rem;margin-bottom:1.5rem;">
-      <div style="border:1px solid #e5e5e5;border-top:2px solid #1a7a45;padding:0.85rem;">
-        <div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#1a7a45;margin-bottom:0.3rem;">Added</div>
-        <div style="font-size:0.82rem;font-weight:700;color:#000;margin-bottom:0.3rem;">"Response Required:" prefix</div>
-        <div style="font-size:0.72rem;color:#444;line-height:1.55;">Applied to all states needing timely client action.</div>
-      </div>
-      <div style="border:1px solid #e5e5e5;border-top:2px solid #1a7a45;padding:0.85rem;">
-        <div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#1a7a45;margin-bottom:0.3rem;">Added</div>
-        <div style="font-size:0.82rem;font-weight:700;color:#000;margin-bottom:0.3rem;">Bid value in status bar</div>
-        <div style="font-size:0.72rem;color:#444;line-height:1.55;">Visible at a glance without scrolling.</div>
-      </div>
-      <div style="border:1px solid #e5e5e5;border-top:2px solid #1a7a45;padding:0.85rem;">
-        <div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#1a7a45;margin-bottom:0.3rem;">Added</div>
-        <div style="font-size:0.82rem;font-weight:700;color:#000;margin-bottom:0.3rem;">"Ack'd" badge</div>
-        <div style="font-size:0.72rem;color:#444;line-height:1.55;">Confirms JPM received the bid.</div>
-      </div>
-      <div style="border:1px solid #e5e5e5;border-top:2px solid #4a7abf;padding:0.85rem;">
-        <div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#4a7abf;margin-bottom:0.3rem;">Revised</div>
-        <div style="font-size:0.82rem;font-weight:700;color:#000;margin-bottom:0.3rem;">Orange CTA for final action</div>
-        <div style="font-size:0.72rem;color:#444;line-height:1.55;">Only orange button in the entire flow. Signals irreversibility.</div>
-      </div>
-      <div style="border:1px solid #e5e5e5;border-top:2px solid #4a7abf;padding:0.85rem;">
-        <div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#4a7abf;margin-bottom:0.3rem;">Revised</div>
-        <div style="font-size:0.82rem;font-weight:700;color:#000;margin-bottom:0.3rem;">Color + shape system</div>
-        <div style="font-size:0.72rem;color:#444;line-height:1.55;">Each combination represents a workflow category.</div>
-      </div>
-      <div style="border:1px solid #e5e5e5;border-top:2px solid #4a7abf;padding:0.85rem;">
-        <div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#4a7abf;margin-bottom:0.3rem;">Revised</div>
-        <div style="font-size:0.82rem;font-weight:700;color:#000;margin-bottom:0.3rem;">"Won" → "Trade Complete"</div>
-        <div style="font-size:0.72rem;color:#444;line-height:1.55;">Removes ambiguity between bid won and trade done.</div>
-      </div>
+    <div style="margin-bottom:1.5rem;">
+      <p style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent);margin-bottom:0.5rem;">Added</p>
+      <ul style="list-style:disc;padding-left:1.25rem;display:flex;flex-direction:column;gap:0.35rem;margin-bottom:1.25rem;">
+        <li style="font-size:0.88rem;color:var(--text-body);line-height:1.65;"><strong style="color:var(--text);">"Response Required:" prefix</strong> applied to all states needing client action</li>
+        <li style="font-size:0.88rem;color:var(--text-body);line-height:1.65;"><strong style="color:var(--text);">Bid value in status bar</strong> visible without scrolling</li>
+        <li style="font-size:0.88rem;color:var(--text-body);line-height:1.65;"><strong style="color:var(--text);">"Ack'd" badge</strong> confirms JPM received the bid</li>
+      </ul>
+      <p style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent-muted);margin-bottom:0.5rem;">Revised</p>
+      <ul style="list-style:disc;padding-left:1.25rem;display:flex;flex-direction:column;gap:0.35rem;">
+        <li style="font-size:0.88rem;color:var(--text-body);line-height:1.65;"><strong style="color:var(--text);">Orange CTA</strong> reserved for final, irreversible actions only</li>
+        <li style="font-size:0.88rem;color:var(--text-body);line-height:1.65;"><strong style="color:var(--text);">Color and shape system</strong> where each combination maps to a workflow category</li>
+        <li style="font-size:0.88rem;color:var(--text-body);line-height:1.65;"><strong style="color:var(--text);">"Won" renamed to "Trade Complete"</strong> to remove ambiguity between bid won and trade settled</li>
+      </ul>
     </div>
 
     <h3 style="font-size:1rem;font-weight:700;color:#000;margin:2rem 0 0.75rem;">Full ticket flow with spot price negotiation</h3>
@@ -556,12 +560,12 @@
         <div style="font-size:0.6rem;color:#555;text-align:center;text-transform:uppercase;letter-spacing:0.1em;">Full ticket flow</div>
       </div>
       <div style="flex:1;display:flex;flex-direction:column;gap:0.75rem;padding-top:0.25rem;">
-        <div style="display:flex;gap:0.65rem;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:50%;background:#111;color:#fff;font-size:0.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">1</div><div style="font-size:0.82rem;color:#333;line-height:1.55;"><strong style="color:#000;">Draft → Bid Submitted</strong> — Submit unlocks when a valid bid is entered. "Ack'd" confirms receipt.</div></div>
-        <div style="display:flex;gap:0.65rem;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:50%;background:#111;color:#fff;font-size:0.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">2</div><div style="font-size:0.82rem;color:#333;line-height:1.55;"><strong style="color:#000;">Bid Used</strong> — Bid value appears in status bar. Client waits.</div></div>
-        <div style="display:flex;gap:0.65rem;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:50%;background:#111;color:#fff;font-size:0.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">3</div><div style="font-size:0.82rem;color:#333;line-height:1.55;"><strong style="color:#000;">"Response Required:" states</strong> — Orange dot + prefix signals the client must act now.</div></div>
-        <div style="display:flex;gap:0.65rem;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:50%;background:#111;color:#fff;font-size:0.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">4</div><div style="font-size:0.82rem;color:#333;line-height:1.55;"><strong style="color:#000;">Spot price negotiation</strong> — Second-round phase. Client and seller negotiate before the trade is finalized.</div></div>
-        <div style="display:flex;gap:0.65rem;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:50%;background:#111;color:#fff;font-size:0.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">5</div><div style="font-size:0.82rem;color:#333;line-height:1.55;"><strong style="color:#000;">Accept Final Price</strong> — Only orange CTA. Point of no return.</div></div>
-        <div style="display:flex;gap:0.65rem;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:50%;background:#111;color:#fff;font-size:0.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">6</div><div style="font-size:0.82rem;color:#333;line-height:1.55;"><strong style="color:#000;">Trade Complete</strong> — Green dot. Done.</div></div>
+        <div style="display:flex;gap:0.65rem;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:50%;background:#111;color:#fff;font-size:0.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">1</div><div style="font-size:0.82rem;color:#333;line-height:1.55;"><strong style="color:#000;">Draft to Bid Submitted.</strong> Submit unlocks when a valid bid is entered. "Ack'd" confirms receipt.</div></div>
+        <div style="display:flex;gap:0.65rem;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:50%;background:#111;color:#fff;font-size:0.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">2</div><div style="font-size:0.82rem;color:#333;line-height:1.55;"><strong style="color:#000;">Bid Used.</strong> Bid value appears in status bar. Client waits.</div></div>
+        <div style="display:flex;gap:0.65rem;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:50%;background:#111;color:#fff;font-size:0.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">3</div><div style="font-size:0.82rem;color:#333;line-height:1.55;"><strong style="color:#000;">"Response Required:" states.</strong> Orange dot and prefix signals the client must act now.</div></div>
+        <div style="display:flex;gap:0.65rem;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:50%;background:#111;color:#fff;font-size:0.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">4</div><div style="font-size:0.82rem;color:#333;line-height:1.55;"><strong style="color:#000;">Spot price negotiation.</strong> Second-round phase. Client and seller negotiate before the trade is finalized.</div></div>
+        <div style="display:flex;gap:0.65rem;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:50%;background:#111;color:#fff;font-size:0.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">5</div><div style="font-size:0.82rem;color:#333;line-height:1.55;"><strong style="color:#000;">Accept Final Price.</strong> Only orange CTA. Point of no return.</div></div>
+        <div style="display:flex;gap:0.65rem;align-items:flex-start;"><div style="width:18px;height:18px;border-radius:50%;background:#111;color:#fff;font-size:0.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">6</div><div style="font-size:0.82rem;color:#333;line-height:1.55;"><strong style="color:#000;">Trade Complete.</strong> Green dot. Done.</div></div>
       </div>
     </div>
 
@@ -634,7 +638,7 @@
     <p>Within the first half-year of launch, the product generated $2.4B in trading volume with $1.3B executed. 37 monthly active users and 45 demos in H1 showed healthy adoption for a zero-to-one product in a space with no prior electronic trading tool.</p>
 
     <h3 style="margin-top:2rem;">Reflection</h3>
-    <p>This was a fun, challenging project. As the sole designer and researcher, I wore both hats simultaneously, adapting to shifting deadlines and navigating stakeholder dynamics while advocating for the research needed to make informed decisions.</p>
+
     <p>I'm glad I insisted on the research sessions, even when they were scrappy. The trader interviews that hit a wall. The pivot to the engineering team. Drawing the workflow diagram live during demos. None of it followed a textbook process, but it produced the insights that shaped the entire product.</p>
     <p>The design review wasn't a formal usability study. It was three conversations with people who would actually use the product, conducted under real time constraints. What came out of it reshaped our priorities: bulk bidding became the focus of iteration 2, and the remaining two findings, around action irreversibility and platform attention, informed the status label revisions and identified opportunities we're still working toward.</p>
 
