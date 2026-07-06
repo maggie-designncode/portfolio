@@ -107,17 +107,21 @@
   .btn {
     display: inline-block;
     padding: 0.65rem 1.5rem;
-    border: 1.5px solid var(--navy);
+    border: 1.5px solid var(--green-dark);
     font-size: 0.8rem;
     text-decoration: none;
-    color: var(--navy);
+    color: var(--green-dark);
     margin-right: 1rem;
     font-weight: 500;
     background: transparent;
     border-radius: 3px;
-    transition: background 0.2s, color 0.2s;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
   }
-  .btn:hover { background: var(--navy); color: #ffffff; }
+  .btn:hover { background: var(--green-dark); color: #ffffff; }
+  .btn-primary { background: var(--green-dark); color: #ffffff; border-color: var(--green-dark); }
+  .btn-primary:hover { background: var(--green-mid); border-color: var(--green-mid); color: #ffffff; }
+  .btn-secondary { background: transparent; color: var(--green-dark); border-color: var(--green-dark); }
+  .btn-secondary:hover { background: var(--green-mid); border-color: var(--green-mid); color: #ffffff; }
 
   .section-label {
     font-size: 0.62rem;
@@ -276,8 +280,8 @@
     <h1>Hi, I'm Maggie.</h1>
     <p class="hero-bio">A product designer with over five years in B2B finance. I work on complex systems where the real problem is rarely the stated one.</p>
     <div>
-      <a href="#work" class="btn">View Work</a>
-      <a href="#contact" class="btn">Get in Touch</a>
+      <a href="#work" class="btn btn-primary">View Work</a>
+      <a href="#contact" class="btn btn-secondary">Get in Touch</a>
     </div>
   </div>
 </div>
