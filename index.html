@@ -263,6 +263,11 @@
   footer { padding: 1.5rem 3rem; display: flex; justify-content: space-between; background: var(--bg); border-top: 1px solid var(--border); }
   footer p { font-size: 0.75rem; color: var(--text-muted); }
 </style>
+<script>
+  if (sessionStorage.getItem('auth') !== 'true') {
+    window.location.href = 'password.html';
+  }
+</script>
 </head>
 <body>
 
