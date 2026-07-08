@@ -63,8 +63,7 @@
 
   /* HERO */
   .hero {
-    padding: 5rem 3rem 4rem;
-    border-bottom: 1px solid var(--border);
+    padding: 5rem 3rem 0;
     max-width: 880px;
   }
   .eyebrow {
@@ -253,7 +252,7 @@
   <div class="meta-grid">
     <div class="meta-item"><span>Role</span><strong>Lead Designer & Researcher</strong></div>
     <div class="meta-item"><span>Timeline</span><strong>~1 year, end-to-end</strong></div>
-    <div class="meta-item"><span>Team</span><strong>Solo designer, cross-functional partners</strong></div>
+    <div class="meta-item"><span>Team</span><strong>1 Product Manager, 1 Engineering Team</strong></div>
     <div class="meta-item"><span>Platform</span><strong>JPMorgan Execute</strong></div>
     <div class="meta-item"><span>Type</span><strong>Zero-to-one, client-facing</strong></div>
   </div>
@@ -269,8 +268,6 @@
 
   <!-- BACKGROUND -->
   <div class="section">
-    <p class="section-label">Background</p>
-    <h2>The platform, the team, the opportunity</h2>
     <p>Execute is JPMorgan's single-dealer platform for institutional macro trading. I'm part of a three-person design team.</p>
     <p>This project was my focus for about a year: building the <strong>first client-facing electronic trading tool for securitized products</strong> on Execute. This category had never been digitized at this scale.</p>
   </div>
@@ -290,21 +287,20 @@
     <h2>Narrowing in on the right problem</h2>
     <p>SPG trades through two main mechanisms: TBA (To Be Announced) and BWIC (Bid Wanted in Competition). TBA is standardized and already supported by platforms like Tradeweb. BWIC is different: an auction-based process with fragmented communication and no clean digital solution on the market.</p>
     <p>JPMorgan also issues its own BWIC lists, which meant digitizing this flow could directly increase list visibility and drive more client engagement on Execute.</p>
-    <p><strong>We prioritized BWIC for MVP.</strong> Not because it was easier, but because the opportunity was bigger and the gap in the market was real.</p>
+    <p><strong>We prioritized BWIC for MVP</strong> because the opportunity was bigger and the gap in the market was real.</p>
   </div>
 
   <!-- RESEARCH -->
   <div class="section">
     <p class="section-label">Research</p>
     <h2>Understanding the real workflow</h2>
-    <p>Initial client interviews showed where friction was highest: fragmented tools, no bid tracking, and no centralized view. But one finding stood out. Clients described uncertainty even after winning a bid. Prices shifted. Trades fell through. The interviews told me <em>what</em> was happening but not <em>why</em>.</p>
-    <p>Trader interviews hit a wall. Years of habit had become muscle memory. So I shifted to the <strong>engineering team who built internal tools for SPG traders.</strong> They had mapped the workflow systematically. As they demoed how traders move through their day, I drew the flow diagram live alongside them.</p>
+    <p>Through stakeholder interviews, I mapped out the key actions and stages of the current workflow.</p>
 
     <figure style="margin: 1.5rem 0;">
       <img src="workflow-diagram.png" alt="BWIC workflow diagram" style="width: 100%; border: 1px solid #e5e5e5; display: block;" />
     </figure>
 
-    <p>What emerged explained everything:</p>
+    <p>What emerged was that</p>
 
     <div style="border: 1px solid #e5e5e5; border-left: 3px solid #111; padding: 1.25rem; margin: 1.25rem 0; background: #f9f9f9;">
       <p style="font-size: 0.88rem; color: #222; line-height: 1.7; margin: 0;">After an initial winning bid, there's often a <strong>second round of negotiation</strong> to confirm the final price. The seller may counter, the client may counter back, and the spot price may go through multiple rounds before both sides agree. Each of these steps creates a new status that the client needs to understand and act on. The volume of back-and-forth makes it difficult to know where you stand at any given moment.</p>
@@ -315,7 +311,7 @@
   <div class="journey-section">
     <p class="section-label">User Journey</p>
     <h2>The buy-side client experience</h2>
-    <p>Combining client interviews with engineering research, I mapped the full buy-side journey across five stages. The later stages reflect the hidden complexity the initial interviews couldn't surface.</p>
+    <p>To simplify the workflow diagram into something more digestible, I mapped the key stages of the buy-side client journey, including their actions and pain points at each step.</p>
 
     <div class="journey-inner">
       <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:#e0e0e0; border:1px solid #e0e0e0; min-width:660px;">
@@ -385,18 +381,6 @@
   </div>
 
   <!-- REDEFINING THE FLOW -->
-  <div class="section">
-    <p class="section-label">Define</p>
-    <h2>Redefining the BWIC flow</h2>
-    <p>We redefined the BWIC workflow into four distinct stages, moving away from informal, overlapping phases toward a structure that could be designed against.</p>
-    <div class="stages-row">
-      <div class="stage"><div class="stage-num">Stage 1</div><div class="stage-name">Submission</div><div class="stage-desc">Seller creates and submits the BWIC list</div></div>
-      <div class="stage"><div class="stage-num">Stage 2</div><div class="stage-name">Auction</div><div class="stage-desc">Dealers bid; seller reviews, negotiates, identifies winner</div></div>
-      <div class="stage"><div class="stage-num">Stage 3</div><div class="stage-name">Finalization</div><div class="stage-desc">Winning bid verified, final price confirmed</div></div>
-      <div class="stage"><div class="stage-num">Stage 4</div><div class="stage-name">Booking</div><div class="stage-desc">Trade executed and settled</div></div>
-    </div>
-  </div>
-
   <!-- DESIGN -->
   <div class="section">
     <p class="section-label">Design · Iteration 1</p>
@@ -404,7 +388,7 @@
     <p>The first iteration focused on replacing the phone-and-chat process with a structured electronic experience: a centralized place to browse bonds, submit bids, and track status.</p>
 
     <h3 style="font-size:1rem; font-weight:700; color:#000; margin:1.5rem 0 0.5rem;">Layout exploration</h3>
-    <p>The core layout question: how to present bid management without sacrificing the ability to browse new bond lists at the same time.</p>
+    <p>The core layout question: how to present bid management in a way that fits how clients actually trade SPG.</p>
 
     <!-- WIREFRAME STYLES -->
     <style>
@@ -432,7 +416,7 @@
       <p class="wf-option-desc">Toggle between "All Lists" and "Active Bids" in a single panel.</p>
       <div class="wf-pros-cons">
         <div class="wf-pro"><strong>Pros</strong>Less visual clutter. All bid interactions in one place.</div>
-        <div class="wf-con"><strong>Cons</strong>Can't see lists and bids at the same time. Context loss at a critical moment.</div>
+        <div class="wf-con"><strong>Cons</strong>Can't see lists and bids at the same time.</div>
       </div>
       <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;border:1px solid #ddd;border-radius:2px;background:#f7f7f7;"><rect x="0" y="0" width="44" height="400" fill="#e8e8e8" stroke="#ddd" stroke-width="1"/><rect x="10" y="12" width="24" height="20" rx="3" fill="#ccc"/><rect x="10" y="40" width="24" height="20" rx="3" fill="#ddd"/><rect x="10" y="68" width="24" height="20" rx="3" fill="#ddd"/><rect x="44" y="0" width="756" height="32" fill="#eee" stroke="#ddd" stroke-width="1"/><text x="56" y="20" font-size="10" fill="#555" font-family="system-ui" font-weight="600">SPG Trading</text><text x="130" y="20" font-size="10" fill="#aaa" font-family="system-ui">Rates</text><text x="165" y="20" font-size="10" fill="#aaa" font-family="system-ui">FX</text><rect x="44" y="32" width="756" height="28" fill="#f0f0f0" stroke="#ddd" stroke-width="1"/><rect x="56" y="38" width="60" height="16" rx="2" fill="#ddd"/><rect x="124" y="38" width="100" height="16" rx="2" fill="#ddd"/><rect x="44" y="60" width="756" height="26" fill="#f4f4f4" stroke="#ddd" stroke-width="1"/><rect x="56" y="65" width="56" height="16" rx="8" fill="#333"/><text x="66" y="77" font-size="8" fill="#fff" font-family="system-ui">All Lists</text><rect x="118" y="65" width="64" height="16" rx="8" fill="#e0e0e0"/><text x="124" y="77" font-size="8" fill="#888" font-family="system-ui">Active Bids</text><rect x="44" y="86" width="756" height="22" fill="#eee"/><text x="56" y="100" font-size="8" fill="#888" font-family="system-ui">BOND / CUSIP</text><text x="220" y="100" font-size="8" fill="#888" font-family="system-ui">SIZE</text><text x="300" y="100" font-size="8" fill="#888" font-family="system-ui">DUE</text><text x="380" y="100" font-size="8" fill="#888" font-family="system-ui">STATUS</text><text x="480" y="100" font-size="8" fill="#888" font-family="system-ui">MY BID</text><text x="570" y="100" font-size="8" fill="#888" font-family="system-ui">SPREAD</text><text x="670" y="100" font-size="8" fill="#888" font-family="system-ui">ACTION</text><rect x="44" y="108" width="756" height="32" fill="#fff" stroke="#eee" stroke-width="1"/><rect x="56" y="118" width="120" height="8" rx="1" fill="#ccc"/><rect x="220" y="118" width="40" height="8" rx="1" fill="#ddd"/><rect x="300" y="118" width="50" height="8" rx="1" fill="#ddd"/><rect x="380" y="118" width="60" height="12" rx="2" fill="#d0e8d0"/><rect x="480" y="118" width="50" height="8" rx="1" fill="#c0c0c0"/><rect x="570" y="118" width="35" height="8" rx="1" fill="#ddd"/><rect x="670" y="118" width="50" height="14" rx="2" fill="#e0e0e0"/><rect x="44" y="140" width="756" height="32" fill="#fafafa" stroke="#eee" stroke-width="1"/><rect x="56" y="150" width="140" height="8" rx="1" fill="#ccc"/><rect x="220" y="150" width="35" height="8" rx="1" fill="#ddd"/><rect x="300" y="150" width="45" height="8" rx="1" fill="#ddd"/><rect x="380" y="150" width="60" height="12" rx="2" fill="#ccdcf0"/><rect x="480" y="150" width="45" height="8" rx="1" fill="#c0c0c0"/><rect x="570" y="150" width="40" height="8" rx="1" fill="#ddd"/><rect x="670" y="150" width="50" height="14" rx="2" fill="#e0e0e0"/><rect x="44" y="172" width="756" height="32" fill="#fff" stroke="#eee" stroke-width="1"/><rect x="56" y="182" width="110" height="8" rx="1" fill="#ccc"/><rect x="220" y="182" width="45" height="8" rx="1" fill="#ddd"/><rect x="300" y="182" width="40" height="8" rx="1" fill="#ddd"/><rect x="380" y="182" width="60" height="12" rx="2" fill="#d0e8d0"/><rect x="480" y="182" width="55" height="8" rx="1" fill="#c0c0c0"/><rect x="570" y="182" width="30" height="8" rx="1" fill="#ddd"/><rect x="670" y="182" width="50" height="14" rx="2" fill="#e0e0e0"/><rect x="44" y="204" width="756" height="32" fill="#fafafa" stroke="#eee" stroke-width="1"/><rect x="56" y="214" width="130" height="8" rx="1" fill="#ccc"/><rect x="220" y="214" width="38" height="8" rx="1" fill="#ddd"/><rect x="300" y="214" width="48" height="8" rx="1" fill="#ddd"/><rect x="380" y="214" width="60" height="12" rx="2" fill="#e8d0d0"/><rect x="480" y="214" width="40" height="8" rx="1" fill="#ddd"/><rect x="570" y="214" width="35" height="8" rx="1" fill="#ddd"/><rect x="670" y="214" width="50" height="14" rx="2" fill="#e0e0e0"/><rect x="44" y="236" width="756" height="32" fill="#fff" stroke="#eee" stroke-width="1"/><rect x="56" y="246" width="100" height="8" rx="1" fill="#ccc"/><rect x="220" y="246" width="42" height="8" rx="1" fill="#ddd"/><rect x="300" y="246" width="44" height="8" rx="1" fill="#ddd"/><rect x="380" y="246" width="60" height="12" rx="2" fill="#ccdcf0"/><rect x="480" y="246" width="48" height="8" rx="1" fill="#c0c0c0"/><rect x="570" y="246" width="38" height="8" rx="1" fill="#ddd"/><rect x="670" y="246" width="50" height="14" rx="2" fill="#e0e0e0"/><text x="400" y="340" font-size="11" fill="#999" font-family="system-ui" text-anchor="middle" font-style="italic">Toggle switches context. Can only see one view at a time.</text></svg>
     </div>
@@ -452,7 +436,7 @@
 
     <div class="decision-box">
       <div class="decision-label">Why Option B</div>
-      <p>Browsing available bonds and monitoring active bids aren't sequential tasks. <strong>They happen at the same time.</strong> Option A forced users to choose one context or the other. Option B keeps both visible.</p>
+      <p>When we showed users both options, we found that clients wanted to shop for new bonds at the same time as managing active bids. That's how they currently operate — browsing and trading happen in parallel, not in sequence. Option B was the only layout that supported that.</p>
     </div>
 
     <p>Iteration 1 focused on the core bidding flow only. The spot price negotiation phase was deliberately scoped out to validate the electronic bidding experience on its own first.</p>
