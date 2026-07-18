@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digitizing Bond Trading — Maggie Chen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #606c38;
+    --accent-light: #f0f1e8;
+    --accent-muted: #606c38;
+    --bg: #f7f6f3;
+    --bg-warm: #f0efe9;
+    --text: #1a1a1a;
+    --text-body: #3a3a3a;
+    --text-muted: #888;
+    --border: #e0dcc8;
+    --border-light: #eae8da;
+    --red: #a63d2f;
+    --green: #283618;
+    --amber: #b38520;
+    --navy: #003049;
+    --sky: #669bbc;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    padding: 1.25rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+    background: rgba(247,246,243,0.92);
+  }
+  .nav-logo {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #283618;
+    letter-spacing: -0.01em;
+  }
+  .nav-back { font-size: 0.78rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  .nav-back:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    padding: 5rem 3rem 0;
+    max-width: 880px;
+  }
+  .eyebrow {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #003049;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+  }
+  h1 {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.85rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 1.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .meta-grid {
+    display: flex; flex-wrap: wrap; gap: 2.5rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 4px; }
+  .meta-item span { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--text-muted); font-weight: 600; }
+  .meta-item strong { font-size: 0.88rem; color: var(--text); font-weight: 500; }
+
+  .outcome-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1.5rem;
+    background: var(--accent-light);
+    border: 1px solid #dde5df;
+    padding: 1.25rem 1.75rem;
+    border-radius: 4px;
+  }
+  .outcome-item { display: flex; flex-direction: column; gap: 2px; }
+  .outcome-num { font-family: 'Manrope', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--sky); }
+  .outcome-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-muted); font-weight: 600; }
+
+  /* CONTENT */
+  .content { max-width: 880px; padding: 0 3rem; }
+
+  .section { padding: 3.5rem 0; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+  .journey-section { padding: 3.5rem 0; border-bottom: 1px solid var(--border); }
+
+  .section-label {
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: #003049;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  h2 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+  h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 1.75rem 0 0.5rem;
+  }
+
+  p { color: var(--text-body); margin-bottom: 1rem; font-size: 0.92rem; line-height: 1.75; }
+  p strong { color: var(--text); font-weight: 600; }
+
+  .pullquote {
+    border-left: 3px solid var(--accent);
+    padding: 0.75rem 1.5rem;
+    margin: 1.75rem 0;
+    background: var(--bg-warm);
+    font-style: italic;
+    color: var(--text);
+    font-size: 0.92rem;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+  .insight {
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    border-radius: 4px;
+    background: var(--bg);
+    transition: box-shadow 0.2s;
+  }
+  .insight:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+  .insight-num { font-family: 'Manrope', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--accent); margin-bottom: 0.25rem; }
+  .insight-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 600; }
+  .insight p { font-size: 0.82rem; color: var(--text-body); margin: 0; line-height: 1.6; }
+
+  .hmw {
+    background: var(--accent-light);
+    border: 1px solid #d5ddd7;
+    padding: 0.85rem 1.25rem;
+    margin: 0.85rem 0;
+    border-radius: 4px;
+  }
+  .hmw span { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent-muted); display: block; margin-bottom: 0.25rem; }
+  .hmw p { margin: 0; font-size: 0.82rem; color: var(--text-body); }
+
+  .stages-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); margin: 1.5rem 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .stage { background: var(--bg); padding: 1rem; text-align: center; }
+  .stage-num { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent-muted); margin-bottom: 0.25rem; }
+  .stage-name { font-family: 'Manrope', sans-serif; font-size: 0.88rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
+  .stage-desc { font-size: 0.72rem; color: var(--text-muted); }
+
+  .callouts-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-muted); margin: 2rem 0 0.75rem; }
+  .callouts { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+  .callout {
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--red);
+    padding: 1.25rem;
+    border-radius: 0 0 4px 4px;
+    background: var(--bg);
+  }
+  .callout-icon { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--red); margin-bottom: 0.4rem; }
+  .callout-title { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 0.35rem; line-height: 1.3; }
+  .callout-desc { font-size: 0.78rem; color: var(--text-body); line-height: 1.55; }
+
+  /* JOURNEY MAP */
+  .journey-inner { overflow-x: auto; }
+  .emotion-wrap { display: grid; grid-template-columns: 100px 1fr; gap: 1px; margin-bottom: 1px; min-width: 680px; }
+  .emotion-label { background: var(--bg-warm); border: 1px solid var(--border); display: flex; align-items: center; padding: 0 0.65rem; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+  .emotion-chart { border: 1px solid var(--border); background: var(--bg); height: 80px; }
+  .stage-bar { display: grid; grid-template-columns: 100px repeat(5,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-bottom: none; min-width: 680px; }
+  .stage-label { background: var(--accent); color: #fff; text-align: center; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.55rem 0.35rem; }
+  .stage-label.empty { background: var(--bg-warm); }
+  .jmap { display: grid; grid-template-columns: 100px repeat(5,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); min-width: 680px; }
+  .jcell { background: var(--bg); padding: 0.6rem 0.7rem; font-size: 0.72rem; line-height: 1.5; color: var(--text-body); }
+  .jcell.row-label { background: var(--bg-warm); font-weight: 700; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); display: flex; align-items: flex-start; padding-top: 0.7rem; }
+  .jcell ul { list-style: disc; padding-left: 0.85rem; }
+  .jcell ul li { margin-bottom: 0.1rem; line-height: 1.4; font-size: 0.72rem; }
+  .jcell.pain { background: #fef5f4; }
+  .jcell.pain ul { list-style: none; padding: 0; }
+  .jcell.pain ul li { color: var(--red); font-size: 0.68rem; padding: 0.1rem 0; line-height: 1.4; }
+  .jcell.pain ul li::before { content: "✕ "; font-size: 0.6rem; }
+  .jcell.opportunity { background: var(--accent-light); }
+  .jcell.opportunity p { color: var(--green); font-size: 0.68rem; font-weight: 500; margin: 0; line-height: 1.4; }
+  .jcell.feeling { font-style: italic; color: var(--text-muted); font-size: 0.68rem; }
+  .touchpoints { display: flex; flex-wrap: wrap; gap: 3px; }
+  .tag { display: inline-block; background: var(--bg-warm); border: 1px solid var(--border); color: var(--text-body); font-size: 0.58rem; padding: 1px 6px; border-radius: 100px; }
+
+  figure { margin: 1.5rem 0; }
+  figure img { width: 100%; border: 1px solid var(--border); display: block; border-radius: 4px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); }
+  figcaption { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.65rem; line-height: 1.5; }
+
+  .case-footer {
+    padding: 3rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    background: #003049;
+  }
+  .case-footer a {
+    font-size: 0.82rem;
+    color: rgba(247,246,243,0.7);
+    text-decoration: none;
+    transition: color 0.2s;
+    padding-bottom: 2px;
+    border-bottom: 1px solid rgba(247,246,243,0.2);
+  }
+  .case-footer a:hover { color: #f7f6f3; border-bottom-color: #f7f6f3; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Maggie Chen</a>
+  <a href="index.html#work" class="nav-back">← Back to Work</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="eyebrow">Case Study 01 · JPMorgan Execute</p>
+  <h1>Digitizing High-Friction Bond Trading for Institutional Clients</h1>
+  <div class="meta-grid">
+    <div class="meta-item"><span>Role</span><strong>Lead Designer & Researcher</strong></div>
+    <div class="meta-item"><span>Timeline</span><strong>~1 year, end-to-end</strong></div>
+    <div class="meta-item"><span>Team</span><strong>1 Product Manager, 1 Engineering Team</strong></div>
+    <div class="meta-item"><span>Platform</span><strong>JPMorgan Execute</strong></div>
+    <div class="meta-item"><span>Type</span><strong>Zero-to-one, client-facing</strong></div>
+  </div>
+  <div class="outcome-bar">
+    <div class="outcome-item"><div class="outcome-num">$2.4B</div><div class="outcome-label">Trading Volume Facilitated</div></div>
+    <div class="outcome-item"><div class="outcome-num">37</div><div class="outcome-label">Monthly Active Users</div></div>
+    <div class="outcome-item"><div class="outcome-num">45</div><div class="outcome-label">Demos in H1</div></div>
+  </div>
+  <figure style="margin: 3rem 0 0;">
+    <img src="cs1-hero.png" alt="BWIC trading tool on Execute" style="width: 100%; display: block;" />
+  </figure>
+</div>
+
+<div class="content">
+
+  <!-- BACKGROUND -->
+  <div class="section">
+    <p>Execute is JPMorgan's single-dealer platform for institutional macro trading. I'm part of a three-person design team.</p>
+    <p>This project was my focus for about a year: building the <strong>first client-facing electronic trading tool for securitized products</strong> on Execute. This category had never been digitized at this scale.</p>
+  </div>
+
+  <!-- PROBLEM SPACE -->
+  <div class="section">
+    <p class="section-label">Discovery</p>
+    <h2>Starting with more questions than answers</h2>
+    <p>The business goal was broadly understood: electronify the manual, high-stakes workflows in securitized products. But almost nothing was defined when I joined.</p>
+    <div class="pullquote">What are we actually building? For whom? Which products? And what's the workflow we're trying to replace?</div>
+    <p>I started with stakeholder interviews across traders, salespeople, and internal partners to map the current landscape.</p>
+  </div>
+
+  <!-- NARROWING SCOPE -->
+  <div class="section">
+    <p class="section-label">Scope</p>
+    <h2>Narrowing in on the right problem</h2>
+    <p>Securitized products trade through two mechanisms. One is standardized and already served by existing platforms. The other, BWIC (Bid Wanted in Competition), is an auction-based process with fragmented communication and no digital solution on the market. <strong>We prioritized BWIC for MVP</strong> because the opportunity was bigger and the gap was real.</p>
+  </div>
+
+  <!-- RESEARCH -->
+  <div class="section">
+    <p class="section-label">Research</p>
+    <h2>Understanding the real workflow</h2>
+    <p>Through stakeholder interviews, I mapped out the key actions and stages of the current workflow. What emerged was that</p>
+
+    <div style="border: 1px solid #e5e5e5; border-left: 3px solid #111; padding: 1.25rem; margin: 1.25rem 0; background: #f9f9f9;">
+      <p style="font-size: 0.88rem; color: #222; line-height: 1.7; margin: 0;">After an initial winning bid, there's often a <strong>second round of negotiation</strong> to confirm the final price. The seller may counter, the client may counter back, and the spot price may go through multiple rounds before both sides agree. Each of these steps creates a new status that the client needs to understand and act on. The volume of back-and-forth makes it difficult to know where you stand at any given moment.</p>
+    </div>
+  </div>
+
+  <!-- JOURNEY MAP -->
+  <div class="journey-section">
+    <p class="section-label">User Journey</p>
+    <h2>The buy-side client experience</h2>
+    <p>I mapped the key stages of the buy-side client journey, including their actions and pain points at each step.</p>
+
+    <div class="journey-inner">
+      <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:#e0e0e0; border:1px solid #e0e0e0; min-width:660px;">
+        <div style="background:#111; color:#fff; text-align:center; font-size:0.62rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; padding:0.5rem 0.3rem;">Pre-Trade</div>
+        <div style="background:#111; color:#fff; text-align:center; font-size:0.62rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; padding:0.5rem 0.3rem;">Bid Submission</div>
+        <div style="background:#111; color:#fff; text-align:center; font-size:0.62rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; padding:0.5rem 0.3rem;">Bid Auction</div>
+        <div style="background:#111; color:#fff; text-align:center; font-size:0.62rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; padding:0.5rem 0.3rem;">Price Confirm</div>
+        <div style="background:#111; color:#fff; text-align:center; font-size:0.62rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; padding:0.5rem 0.3rem;">Book Trade</div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:#e0e0e0; border:1px solid #e0e0e0; border-top:none; min-width:660px;">
+        <div style="background:#fff; padding:0.6rem; font-size:0.72rem; color:#333; line-height:1.45;">Browse emails and published lists. Analyze bonds. Cross-check in OMS.</div>
+        <div style="background:#fff; padding:0.6rem; font-size:0.72rem; color:#333; line-height:1.45;">Copy/paste CUSIPs into IB chat. Submit bids manually. Track across spreadsheets.</div>
+        <div style="background:#fff; padding:0.6rem; font-size:0.72rem; color:#333; line-height:1.45;">Ping sales for updates. Adjust bids. Monitor multiple BWICs simultaneously.</div>
+        <div style="background:#fff; padding:0.6rem; font-size:0.72rem; color:#333; line-height:1.45;">Negotiate final pricing. Undergo regulatory clearance. Reconcile if terms shift.</div>
+        <div style="background:#fff; padding:0.6rem; font-size:0.72rem; color:#333; line-height:1.45;">Agree to terms. Wait for booking confirmation. Manually update internal records.</div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:#e0e0e0; border:1px solid #e0e0e0; border-top:none; min-width:660px;">
+        <div style="background:#fff5f5; padding:0.6rem; font-size:0.7rem; color:#c0392b; line-height:1.45;">Lists arrive unpredictably. Easy to miss when multitasking.</div>
+        <div style="background:#fff5f5; padding:0.6rem; font-size:0.7rem; color:#c0392b; line-height:1.45;">Manual, error-prone. No structured way to track bids in one place.</div>
+        <div style="background:#fff5f5; padding:0.6rem; font-size:0.7rem; color:#c0392b; line-height:1.45;">No central bid dashboard. Response time varies by client tier.</div>
+        <div style="background:#fff5f5; padding:0.6rem; font-size:0.7rem; color:#c0392b; line-height:1.45;">Second-round negotiation is informal. Client may fail reg clearance.</div>
+        <div style="background:#fff5f5; padding:0.6rem; font-size:0.7rem; color:#c0392b; line-height:1.45;">Booking status invisible. If reg fails, BWIC returns to market with no visibility.</div>
+      </div>
+    </div>
+
+    <p style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.18em; color:#888; margin:2rem 0 1rem;">Three problems to solve</p>
+
+    <div style="display:flex; flex-direction:column; gap:1px; border:1px solid var(--border); border-radius:4px; overflow:hidden;">
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0;">
+        <div style="padding:1.25rem 1.5rem; background:var(--bg); border-right:1px solid var(--border);">
+          <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--red); margin-bottom:0.4rem;">01 Pain point</div>
+          <div style="font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:0.35rem;">Fragmented workflow</div>
+          <div style="font-size:0.82rem; color:var(--text-body); line-height:1.6;">Clients juggle email, IB Chat, Excel, OMS, and phone with no single source of truth. Every stage of the trade lives in a different tool.</div>
+        </div>
+        <div style="padding:1.25rem 1.5rem; background:var(--accent-light);">
+          <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--accent-muted); margin-bottom:0.4rem;">How might we...</div>
+          <div style="font-size:0.88rem; color:var(--accent); line-height:1.6;">Centralize the entire BWIC workflow into a single view where clients can browse, bid, track, and confirm without switching tools?</div>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:1px solid var(--border);">
+        <div style="padding:1.25rem 1.5rem; background:var(--bg); border-right:1px solid var(--border);">
+          <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--red); margin-bottom:0.4rem;">02 Pain point</div>
+          <div style="font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:0.35rem;">No status visibility</div>
+          <div style="font-size:0.82rem; color:var(--text-body); line-height:1.6;">No unified view of where bids stand. Clients can't tell what needs their attention, what's waiting, or when an action is final and irreversible.</div>
+        </div>
+        <div style="padding:1.25rem 1.5rem; background:var(--accent-light);">
+          <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--accent-muted); margin-bottom:0.4rem;">How might we...</div>
+          <div style="font-size:0.88rem; color:var(--accent); line-height:1.6;">Make every status and required action immediately clear, with an unambiguous signal when a decision is final?</div>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:1px solid var(--border);">
+        <div style="padding:1.25rem 1.5rem; background:var(--bg); border-right:1px solid var(--border);">
+          <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--red); margin-bottom:0.4rem;">03 Pain point</div>
+          <div style="font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:0.35rem;">No structured path from bid to trade</div>
+          <div style="font-size:0.82rem; color:var(--text-body); line-height:1.6;">The second-round negotiation, spot pricing, and final confirmation are all handled informally over chat. No system defines the stages or guides either side through them.</div>
+        </div>
+        <div style="padding:1.25rem 1.5rem; background:var(--accent-light);">
+          <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--accent-muted); margin-bottom:0.4rem;">How might we...</div>
+          <div style="font-size:0.88rem; color:var(--accent); line-height:1.6;">Define the stages of a BWIC from bid to settlement so both sides know exactly where they are and what comes next?</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- REDEFINING THE FLOW -->
+  <!-- DESIGN -->
+  <div class="section">
+    <p class="section-label">Design · Iteration 1</p>
+    <h2>Building the core workflow</h2>
+    <p>The first iteration focused on replacing the phone-and-chat process with a structured electronic experience: a centralized place to browse bonds, submit bids, and track status.</p>
+
+    <h3 style="font-size:1rem; font-weight:700; color:#000; margin:1.5rem 0 0.5rem;">Layout exploration</h3>
+    <p>The core layout question: how to present bid management in a way that fits how clients actually trade securitized products.</p>
+
+    <!-- WIREFRAME STYLES -->
+    <style>
+      .wf-option { margin: 1.75rem 0; }
+      .wf-option-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.5rem; }
+      .wf-option-tag { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #888; }
+      .wf-option-title { font-size: 1rem; font-weight: 700; color: #000; }
+      .wf-option-desc { font-size: 0.85rem; color: #555; margin-bottom: 0.85rem; }
+      .wf-pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem; }
+      .wf-pro, .wf-con { padding: 0.6rem 0.75rem; font-size: 0.78rem; line-height: 1.5; }
+      .wf-pro { background: #f0faf4; border: 1px solid #c3e6cb; color: #1a7a45; }
+      .wf-con { background: #fff5f5; border: 1px solid #f5c6cb; color: #c0392b; }
+      .wf-pro strong, .wf-con strong { display: block; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.25rem; }
+      .decision-box { border: 1.5px solid #111; padding: 1.25rem 1.5rem; margin: 2rem 0; background: #f9f9f9; }
+      .decision-box .decision-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: #888; margin-bottom: 0.4rem; }
+      .decision-box p { font-size: 0.9rem; color: #222; margin: 0; line-height: 1.65; }
+      .decision-box strong { color: #000; }
+    </style>
+
+    <div class="wf-option">
+      <div class="wf-option-header">
+        <span class="wf-option-tag">Option A</span>
+        <span class="wf-option-title">Single grid with filter toggle</span>
+      </div>
+      <p class="wf-option-desc">Toggle between "All Lists" and "Active Bids" in a single panel.</p>
+      <div class="wf-pros-cons">
+        <div class="wf-pro"><strong>Pros</strong>Less visual clutter. All bid interactions in one place.</div>
+        <div class="wf-con"><strong>Cons</strong>Can't see lists and bids at the same time.</div>
+      </div>
+      <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;border:1px solid #ddd;border-radius:2px;background:#f7f7f7;"><rect x="0" y="0" width="44" height="400" fill="#e8e8e8" stroke="#ddd" stroke-width="1"/><rect x="10" y="12" width="24" height="20" rx="3" fill="#ccc"/><rect x="10" y="40" width="24" height="20" rx="3" fill="#ddd"/><rect x="10" y="68" width="24" height="20" rx="3" fill="#ddd"/><rect x="44" y="0" width="756" height="32" fill="#eee" stroke="#ddd" stroke-width="1"/><text x="56" y="20" font-size="10" fill="#555" font-family="system-ui" font-weight="600">SPG Trading</text><text x="130" y="20" font-size="10" fill="#aaa" font-family="system-ui">Rates</text><text x="165" y="20" font-size="10" fill="#aaa" font-family="system-ui">FX</text><rect x="44" y="32" width="756" height="28" fill="#f0f0f0" stroke="#ddd" stroke-width="1"/><rect x="56" y="38" width="60" height="16" rx="2" fill="#ddd"/><rect x="124" y="38" width="100" height="16" rx="2" fill="#ddd"/><rect x="44" y="60" width="756" height="26" fill="#f4f4f4" stroke="#ddd" stroke-width="1"/><rect x="56" y="65" width="56" height="16" rx="8" fill="#333"/><text x="66" y="77" font-size="8" fill="#fff" font-family="system-ui">All Lists</text><rect x="118" y="65" width="64" height="16" rx="8" fill="#e0e0e0"/><text x="124" y="77" font-size="8" fill="#888" font-family="system-ui">Active Bids</text><rect x="44" y="86" width="756" height="22" fill="#eee"/><text x="56" y="100" font-size="8" fill="#888" font-family="system-ui">BOND / CUSIP</text><text x="220" y="100" font-size="8" fill="#888" font-family="system-ui">SIZE</text><text x="300" y="100" font-size="8" fill="#888" font-family="system-ui">DUE</text><text x="380" y="100" font-size="8" fill="#888" font-family="system-ui">STATUS</text><text x="480" y="100" font-size="8" fill="#888" font-family="system-ui">MY BID</text><text x="570" y="100" font-size="8" fill="#888" font-family="system-ui">SPREAD</text><text x="670" y="100" font-size="8" fill="#888" font-family="system-ui">ACTION</text><rect x="44" y="108" width="756" height="32" fill="#fff" stroke="#eee" stroke-width="1"/><rect x="56" y="118" width="120" height="8" rx="1" fill="#ccc"/><rect x="220" y="118" width="40" height="8" rx="1" fill="#ddd"/><rect x="300" y="118" width="50" height="8" rx="1" fill="#ddd"/><rect x="380" y="118" width="60" height="12" rx="2" fill="#d0e8d0"/><rect x="480" y="118" width="50" height="8" rx="1" fill="#c0c0c0"/><rect x="570" y="118" width="35" height="8" rx="1" fill="#ddd"/><rect x="670" y="118" width="50" height="14" rx="2" fill="#e0e0e0"/><rect x="44" y="140" width="756" height="32" fill="#fafafa" stroke="#eee" stroke-width="1"/><rect x="56" y="150" width="140" height="8" rx="1" fill="#ccc"/><rect x="220" y="150" width="35" height="8" rx="1" fill="#ddd"/><rect x="300" y="150" width="45" height="8" rx="1" fill="#ddd"/><rect x="380" y="150" width="60" height="12" rx="2" fill="#ccdcf0"/><rect x="480" y="150" width="45" height="8" rx="1" fill="#c0c0c0"/><rect x="570" y="150" width="40" height="8" rx="1" fill="#ddd"/><rect x="670" y="150" width="50" height="14" rx="2" fill="#e0e0e0"/><rect x="44" y="172" width="756" height="32" fill="#fff" stroke="#eee" stroke-width="1"/><rect x="56" y="182" width="110" height="8" rx="1" fill="#ccc"/><rect x="220" y="182" width="45" height="8" rx="1" fill="#ddd"/><rect x="300" y="182" width="40" height="8" rx="1" fill="#ddd"/><rect x="380" y="182" width="60" height="12" rx="2" fill="#d0e8d0"/><rect x="480" y="182" width="55" height="8" rx="1" fill="#c0c0c0"/><rect x="570" y="182" width="30" height="8" rx="1" fill="#ddd"/><rect x="670" y="182" width="50" height="14" rx="2" fill="#e0e0e0"/><rect x="44" y="204" width="756" height="32" fill="#fafafa" stroke="#eee" stroke-width="1"/><rect x="56" y="214" width="130" height="8" rx="1" fill="#ccc"/><rect x="220" y="214" width="38" height="8" rx="1" fill="#ddd"/><rect x="300" y="214" width="48" height="8" rx="1" fill="#ddd"/><rect x="380" y="214" width="60" height="12" rx="2" fill="#e8d0d0"/><rect x="480" y="214" width="40" height="8" rx="1" fill="#ddd"/><rect x="570" y="214" width="35" height="8" rx="1" fill="#ddd"/><rect x="670" y="214" width="50" height="14" rx="2" fill="#e0e0e0"/><rect x="44" y="236" width="756" height="32" fill="#fff" stroke="#eee" stroke-width="1"/><rect x="56" y="246" width="100" height="8" rx="1" fill="#ccc"/><rect x="220" y="246" width="42" height="8" rx="1" fill="#ddd"/><rect x="300" y="246" width="44" height="8" rx="1" fill="#ddd"/><rect x="380" y="246" width="60" height="12" rx="2" fill="#ccdcf0"/><rect x="480" y="246" width="48" height="8" rx="1" fill="#c0c0c0"/><rect x="570" y="246" width="38" height="8" rx="1" fill="#ddd"/><rect x="670" y="246" width="50" height="14" rx="2" fill="#e0e0e0"/><text x="400" y="340" font-size="11" fill="#999" font-family="system-ui" text-anchor="middle" font-style="italic">Toggle switches context. Can only see one view at a time.</text></svg>
+    </div>
+
+    <div class="wf-option">
+      <div class="wf-option-header">
+        <span class="wf-option-tag" style="color:#1a7a45;">Option B — Selected</span>
+        <span class="wf-option-title">Split view with active bids blotter</span>
+      </div>
+      <p class="wf-option-desc">Persistent blotter below keeps active bids always visible while the top panel is free for browsing.</p>
+      <div class="wf-pros-cons">
+        <div class="wf-pro"><strong>Pros</strong>Browse and monitor bids simultaneously. No context switching.</div>
+        <div class="wf-con"><strong>Cons</strong>No existing platform pattern. Required overriding some platform constraints.</div>
+      </div>
+      <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;border:1px solid #ddd;border-radius:2px;background:#f7f7f7;"><rect x="0" y="0" width="44" height="400" fill="#e8e8e8" stroke="#ddd" stroke-width="1"/><rect x="10" y="12" width="24" height="20" rx="3" fill="#ccc"/><rect x="10" y="40" width="24" height="20" rx="3" fill="#ddd"/><rect x="10" y="68" width="24" height="20" rx="3" fill="#ddd"/><rect x="44" y="0" width="756" height="32" fill="#eee" stroke="#ddd" stroke-width="1"/><text x="56" y="20" font-size="10" fill="#555" font-family="system-ui" font-weight="600">SPG Trading</text><text x="130" y="20" font-size="10" fill="#aaa" font-family="system-ui">Rates</text><text x="165" y="20" font-size="10" fill="#aaa" font-family="system-ui">FX</text><rect x="44" y="32" width="756" height="28" fill="#f0f0f0" stroke="#ddd" stroke-width="1"/><rect x="56" y="38" width="60" height="16" rx="2" fill="#ddd"/><rect x="124" y="38" width="100" height="16" rx="2" fill="#ddd"/><rect x="44" y="60" width="756" height="18" fill="#f0f0f0" stroke="#ddd" stroke-width="1"/><text x="56" y="73" font-size="8" fill="#888" font-family="system-ui" font-weight="600">BWIC LISTS</text><rect x="44" y="78" width="756" height="20" fill="#eee"/><text x="56" y="91" font-size="8" fill="#888" font-family="system-ui">BOND / CUSIP</text><text x="230" y="91" font-size="8" fill="#888" font-family="system-ui">SIZE</text><text x="310" y="91" font-size="8" fill="#888" font-family="system-ui">DUE</text><text x="390" y="91" font-size="8" fill="#888" font-family="system-ui">STATUS</text><text x="490" y="91" font-size="8" fill="#888" font-family="system-ui">MY BID</text><text x="600" y="91" font-size="8" fill="#888" font-family="system-ui">ACTION</text><rect x="44" y="98" width="756" height="28" fill="#fff" stroke="#eee" stroke-width="1"/><rect x="56" y="106" width="120" height="8" rx="1" fill="#ccc"/><rect x="230" y="106" width="40" height="8" rx="1" fill="#ddd"/><rect x="310" y="106" width="50" height="8" rx="1" fill="#ddd"/><rect x="390" y="106" width="55" height="12" rx="2" fill="#d0e8d0"/><rect x="490" y="106" width="50" height="8" rx="1" fill="#c0c0c0"/><rect x="600" y="106" width="50" height="14" rx="2" fill="#e0e0e0"/><rect x="44" y="126" width="756" height="28" fill="#fafafa" stroke="#eee" stroke-width="1"/><rect x="56" y="134" width="135" height="8" rx="1" fill="#ccc"/><rect x="230" y="134" width="35" height="8" rx="1" fill="#ddd"/><rect x="310" y="134" width="45" height="8" rx="1" fill="#ddd"/><rect x="390" y="134" width="55" height="12" rx="2" fill="#ccdcf0"/><rect x="490" y="134" width="45" height="8" rx="1" fill="#c0c0c0"/><rect x="600" y="134" width="50" height="14" rx="2" fill="#e0e0e0"/><rect x="44" y="154" width="756" height="28" fill="#fff" stroke="#eee" stroke-width="1"/><rect x="56" y="162" width="105" height="8" rx="1" fill="#ccc"/><rect x="230" y="162" width="42" height="8" rx="1" fill="#ddd"/><rect x="310" y="162" width="40" height="8" rx="1" fill="#ddd"/><rect x="390" y="162" width="55" height="12" rx="2" fill="#d0e8d0"/><rect x="490" y="162" width="52" height="8" rx="1" fill="#c0c0c0"/><rect x="600" y="162" width="50" height="14" rx="2" fill="#e0e0e0"/><rect x="44" y="182" width="756" height="28" fill="#fafafa" stroke="#eee" stroke-width="1"/><rect x="56" y="190" width="125" height="8" rx="1" fill="#ccc"/><rect x="230" y="190" width="38" height="8" rx="1" fill="#ddd"/><rect x="310" y="190" width="48" height="8" rx="1" fill="#ddd"/><rect x="390" y="190" width="55" height="12" rx="2" fill="#e8d0d0"/><rect x="490" y="190" width="48" height="8" rx="1" fill="#ddd"/><rect x="600" y="190" width="50" height="14" rx="2" fill="#e0e0e0"/><rect x="44" y="215" width="756" height="3" fill="#333"/><rect x="44" y="218" width="756" height="20" fill="#f0f0f0" stroke="#ddd" stroke-width="1"/><text x="56" y="231" font-size="8" fill="#555" font-family="system-ui" font-weight="700">ACTIVE BIDS BLOTTER</text><rect x="170" y="223" width="40" height="12" rx="6" fill="#333"/><text x="178" y="232" font-size="7" fill="#fff" font-family="system-ui">3 bids</text><rect x="44" y="238" width="756" height="20" fill="#eee"/><text x="56" y="251" font-size="8" fill="#888" font-family="system-ui">BOND</text><text x="230" y="251" font-size="8" fill="#888" font-family="system-ui">BID</text><text x="310" y="251" font-size="8" fill="#888" font-family="system-ui">STATUS</text><text x="420" y="251" font-size="8" fill="#888" font-family="system-ui">COUNTER</text><text x="530" y="251" font-size="8" fill="#888" font-family="system-ui">EXPIRES</text><text x="640" y="251" font-size="8" fill="#888" font-family="system-ui">ACTION</text><rect x="44" y="258" width="756" height="28" fill="#fff" stroke="#eee" stroke-width="1"/><rect x="56" y="266" width="110" height="8" rx="1" fill="#ccc"/><rect x="230" y="266" width="45" height="8" rx="1" fill="#b8b8b8"/><rect x="310" y="266" width="55" height="12" rx="2" fill="#ccdcf0"/><rect x="420" y="266" width="40" height="8" rx="1" fill="#ddd"/><rect x="530" y="266" width="50" height="8" rx="1" fill="#e8dcc0"/><rect x="640" y="266" width="50" height="14" rx="2" fill="#e0e0e0"/><rect x="44" y="286" width="756" height="28" fill="#fafafa" stroke="#eee" stroke-width="1"/><rect x="56" y="294" width="125" height="8" rx="1" fill="#ccc"/><rect x="230" y="294" width="50" height="8" rx="1" fill="#b8b8b8"/><rect x="310" y="294" width="55" height="12" rx="2" fill="#d0e8d0"/><rect x="420" y="294" width="35" height="8" rx="1" fill="#ddd"/><rect x="530" y="294" width="45" height="8" rx="1" fill="#e8dcc0"/><rect x="640" y="294" width="50" height="14" rx="2" fill="#e0e0e0"/><rect x="44" y="314" width="756" height="28" fill="#fff" stroke="#eee" stroke-width="1"/><rect x="56" y="322" width="100" height="8" rx="1" fill="#ccc"/><rect x="230" y="322" width="42" height="8" rx="1" fill="#b8b8b8"/><rect x="310" y="322" width="55" height="12" rx="2" fill="#ccdcf0"/><rect x="420" y="322" width="38" height="8" rx="1" fill="#ddd"/><rect x="530" y="322" width="48" height="8" rx="1" fill="#e8dcc0"/><rect x="640" y="322" width="50" height="14" rx="2" fill="#e0e0e0"/><text x="400" y="375" font-size="11" fill="#999" font-family="system-ui" text-anchor="middle" font-style="italic">Both views visible at the same time. No switching needed.</text></svg>
+    </div>
+
+    <div class="decision-box">
+      <div class="decision-label">Why Option B</div>
+      <p>When we showed users both options, we found that clients wanted to shop for new bonds at the same time as managing active bids. That's how they currently operate — browsing and trading happen in parallel, not in sequence. Option B was the only layout that supported that.</p>
+    </div>
+
+    <p>Iteration 1 focused on the core bidding flow only. The spot price negotiation phase was deliberately scoped out to validate the electronic bidding experience on its own first.</p>
+
+    <h3 style="font-size:1rem; font-weight:700; color:#000; margin:2rem 0 0.5rem;">Ticket flow</h3>
+    <p>The bid ticket guided clients through the full bidding lifecycle: entering a bid, submitting, countering, accepting, and reaching a final outcome.</p>
+
+    <figure style="margin:1.5rem 0 0.5rem;">
+      <img src="iteration-1-screens.png" alt="Iteration 1 ticket states" style="width:100%;border:1px solid #e5e5e5;display:block;border-radius:2px;" />
+    </figure>
+    <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:2px;margin-bottom:2rem;">
+      <div style="font-size:0.58rem;text-align:center;color:#888;">Draft</div>
+      <div style="font-size:0.58rem;text-align:center;color:#888;">Bid Submitted</div>
+      <div style="font-size:0.58rem;text-align:center;color:#888;">Bid Used</div>
+      <div style="font-size:0.58rem;text-align:center;color:#888;">Seller Counters</div>
+      <div style="font-size:0.58rem;text-align:center;color:#888;">Client Counter</div>
+      <div style="font-size:0.58rem;text-align:center;color:#888;">Client Counter</div>
+      <div style="font-size:0.58rem;text-align:center;color:#888;">Accept Final</div>
+      <div style="font-size:0.58rem;text-align:center;color:#888;">Won</div>
+    </div>
+  </div>
+
+  <!-- DESIGN REVIEW -->
+  <div class="section">
+    <p class="section-label">Design Review</p>
+    <h2>Testing with real users</h2>
+    <p>I ran design reviews with three participants: a CIO/Portfolio Manager, a Director of Specs Trading, and an Agency MBS Trader.</p>
+
+    <figure style="margin: 1.5rem 0;">
+      <img src="design-review.png" alt="Design review feedback spreadsheet" style="width: 100%; border: 1px solid #e5e5e5; display: block;" />
+      <figcaption style="font-size: 0.75rem; color: #888; margin-top: 0.6rem; line-height: 1.5;">Feedback from three participants covering bond browsing, bid submission, negotiation, and post-trade workflows.</figcaption>
+    </figure>
+
+    <p>Three themes came through:</p>
+
+    <div class="insight-grid">
+      <div class="insight">
+        <div class="insight-num">01</div>
+        <div class="insight-label">Bulk is the real workflow</div>
+        <p>Participants bid on 20 to 30 bonds at a time, often pasting from spreadsheets. Single-bond submission wasn't how they worked.</p>
+      </div>
+      <div class="insight">
+        <div class="insight-num">02</div>
+        <div class="insight-label">Users couldn't tell when an action was final</div>
+        <p>The confusion wasn't about label names. It was about irreversibility. Users didn't know which action was the point of no return and from where no more changes could be made.</p>
+      </div>
+      <div class="insight">
+        <div class="insight-num">03</div>
+        <div class="insight-label">Execute is one of many platforms</div>
+        <p>Clients trade across Bloomberg, IB Chat, Tradeweb, and more. They're not watching Execute all day. If a new BWIC list drops and they miss it, the opportunity is gone.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ITERATION 2 -->
+  <div class="section">
+    <p class="section-label">Design · Iteration 2</p>
+    <h2>Responding to real user needs</h2>
+    <p>The design review reshaped the product. Iteration 2 addressed three things: revising the status labels and visual system, adding the spot price negotiation flow, and building bulk bid management.</p>
+
+    <h3 style="font-size:1rem;font-weight:700;color:#000;margin:1.5rem 0 0.75rem;">Status label revisions</h3>
+    <p>Users couldn't distinguish time-sensitive states from passive ones. Iteration 2 introduced a systematic language revision and a consistent color + shape treatment.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:1.5rem 0;">
+      <div>
+        <p style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--text-muted);margin-bottom:0.5rem;">Before · Iteration 1</p>
+        <img src="status-iteration-1.png" alt="Iteration 1 status labels" style="width:100%;border:1px solid var(--border);border-radius:4px;display:block;" />
+      </div>
+      <div>
+        <p style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent);margin-bottom:0.5rem;">After · Iteration 2</p>
+        <img src="status-iteration-2.png" alt="Iteration 2 status labels with Response Required prefix and documented quotes" style="width:100%;border:1px solid var(--border);border-radius:4px;display:block;" />
+      </div>
+    </div>
+
+    <ul style="list-style:disc;padding-left:1.25rem;display:flex;flex-direction:column;gap:0.35rem;margin-bottom:1.5rem;">
+      <li style="font-size:0.88rem;color:var(--text-body);line-height:1.65;"><strong style="color:var(--text);">Consistent color coding</strong> for each trading stage</li>
+      <li style="font-size:0.88rem;color:var(--text-body);line-height:1.65;"><strong style="color:var(--text);">Clear "Response Required:" label</strong> whenever the user needs to act</li>
+      <li style="font-size:0.88rem;color:var(--text-body);line-height:1.65;"><strong style="color:var(--text);">Quotes documented on the status</strong> so the price a user submitted or countered is never lost when a new price comes back</li>
+    </ul>
+
+    <figure style="margin:0 0 1.5rem;">
+      <img src="status-system-annotated.png" alt="Full status system with stage groupings, win probabilities, and loss states" style="width:100%;border:1px solid var(--border);border-radius:4px;display:block;" />
+      <figcaption style="font-size:0.72rem;color:var(--text-muted);margin-top:0.5rem;">The full status system: stage groupings, trade winning probability at each phase, and loss states.</figcaption>
+    </figure>
+
+    <h3 style="font-size:1rem;font-weight:700;color:#000;margin:2rem 0 0.75rem;">Full ticket flow with spot price negotiation</h3>
+    <p>Iteration 2 also introduced the spot price negotiation phase that was scoped out of iteration 1. The full flow now covers bidding, countering, spot pricing, and final confirmation.</p>
+
+    <figure style="margin:1.5rem 0;display:flex;flex-direction:column;align-items:center;">
+      <div style="background:#111;border-radius:6px;padding:1.25rem;">
+        <img src="ticketflow.gif" alt="Full BWIC bid ticket flow" style="width:220px;border-radius:4px;display:block;" />
+      </div>
+      <figcaption style="font-size:0.72rem;color:var(--text-muted);margin-top:0.5rem;text-align:center;">The full ticket flow from draft to trade complete, including the spot price negotiation added in iteration 2.</figcaption>
+    </figure>
+
+    <h3 style="font-size:1rem;font-weight:700;color:#000;margin:2.5rem 0 0.75rem;">Bulk trading flow</h3>
+    <p>The design review confirmed that clients bid on 20 to 30 bonds at a time, so iteration 2 introduced bulk bid management directly in the split-view blotter. Bids are entered directly in the Bid column with all trades visible at once, and global action buttons process entire batches in one click.</p>
+
+    <figure style="margin:2rem 0 0.5rem;">
+      <img src="bulk-flow-01-split-view.png" alt="Split view with bid column" style="width:100%;border:1px solid var(--border);display:block;border-radius:4px;" />
+      <figcaption style="font-size:0.72rem;color:var(--text-muted);margin-top:0.5rem;">BWIC list on top, active bids blotter below. Bids entered directly in the Bid column with all 20 trades visible at once.</figcaption>
+    </figure>
+
+    <figure style="margin:2rem 0 0.5rem;">
+      <img src="bulk-worst-case.png" alt="Bulk blotter with every status type at once" style="width:100%;border:1px solid var(--border);display:block;border-radius:4px;" />
+      <figcaption style="font-size:0.72rem;color:var(--text-muted);margin-top:0.5rem;">Pressure-testing the worst case: every row in a different status. Unlikely in practice, but the global action bar had to handle it, grouping actions by type with counts so nothing gets lost.</figcaption>
+    </figure>
+  </div>
+
+  <!-- OUTCOMES -->
+  <div class="section">
+    <p class="section-label">Outcomes</p>
+    <h2>Impact</h2>
+
+    <div style="display:flex; flex-wrap:wrap; gap:1rem; margin-bottom:2rem;">
+      <div class="outcome-bar" style="flex:1; min-width:200px;">
+        <div class="outcome-item"><div class="outcome-num">$2.4B</div><div class="outcome-label">Trading Volume Facilitated</div></div>
+        <div class="outcome-item"><div class="outcome-num">37</div><div class="outcome-label">Monthly Active Users</div></div>
+        <div class="outcome-item"><div class="outcome-num">45</div><div class="outcome-label">Demos in H1</div></div>
+      </div>
+    </div>
+
+    <p>Within the first half-year of launch, the product facilitated $2.4B in trading volume. 37 monthly active users and 45 demos in H1 showed healthy adoption for a zero-to-one product in a space with no prior electronic trading tool.</p>
+
+    <h3 style="margin-top:2rem;">Reflection</h3>
+
+    <p>I'm glad I insisted on the research sessions, even when they were scrappy. The trader interviews that hit a wall. The pivot to the engineering team. Drawing the workflow diagram live during demos. None of it followed a textbook process, but it produced the insights that shaped the entire product.</p>
+    <p>The design review wasn't a formal usability study. It was three conversations with people who would actually use the product, conducted under real time constraints. What came out of it reshaped our priorities: bulk bidding became the focus of iteration 2, and the remaining two findings, around action irreversibility and platform attention, informed the status label revisions and identified opportunities we're still working toward.</p>
+
+    <h3>What I'd do differently</h3>
+    <p><strong>Push harder on trade cancellation.</strong> There's currently no structured way for clients to back out once they've committed. Key stakeholders were resistant to including this due to conflict of interest on the business side. But a platform that lets you commit irrevocably without offering a way to reverse course feels one-sided. This is a hard conversation I'd revisit in a future iteration.</p>
+    <p><strong>Explore alerts more deeply.</strong> Execute is a single-dealer platform. Clients trade competitively across multiple systems, and the busiest window for specs trading is 10 to 11:30am. If a new BWIC list drops and the client misses it, the opportunity is gone. We identified the need for alerts during the design review, but I'd want to explore the notification model further: what triggers an alert, which channel it uses, and how to avoid fatigue in an environment where traders are already overwhelmed with information.</p>
+  </div>
+
+</div>
+
+<div class="case-footer">
+  <a href="index.html#work">← Back to Work</a>
+  <a href="case-study-2.html">Next: Rates Derivatives →</a>
+</div>
+
+</body>
+</html>
