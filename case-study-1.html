@@ -97,7 +97,7 @@
 
   .outcome-bar {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     background: var(--accent-light);
     border: 1px solid #dde5df;
@@ -547,12 +547,10 @@
     <p class="section-label">Outcomes</p>
     <h2>Impact</h2>
 
-    <div style="display:flex; flex-wrap:wrap; gap:1rem; margin-bottom:2rem;">
-      <div class="outcome-bar" style="flex:1; min-width:200px;">
-        <div class="outcome-item"><div class="outcome-num">$2.4B</div><div class="outcome-label">Trading Volume Facilitated</div></div>
-        <div class="outcome-item"><div class="outcome-num">37</div><div class="outcome-label">Monthly Active Users</div></div>
-        <div class="outcome-item"><div class="outcome-num">45</div><div class="outcome-label">Demos in H1</div></div>
-      </div>
+    <div class="outcome-bar" style="margin-bottom:2rem;">
+      <div class="outcome-item"><div class="outcome-num">$2.4B</div><div class="outcome-label">Trading Volume Facilitated</div></div>
+      <div class="outcome-item"><div class="outcome-num">37</div><div class="outcome-label">Monthly Active Users</div></div>
+      <div class="outcome-item"><div class="outcome-num">45</div><div class="outcome-label">Demos in H1</div></div>
     </div>
 
     <p>Within the first half-year of launch, the product facilitated $2.4B in trading volume. 37 monthly active users and 45 demos in H1 showed healthy adoption for a zero-to-one product in a space with no prior electronic trading tool.</p>
