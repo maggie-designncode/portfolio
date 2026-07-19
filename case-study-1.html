@@ -220,7 +220,7 @@
 
   figure { margin: 1.5rem 0; }
   figure img { width: 100%; border: 1px solid var(--border); display: block; border-radius: 4px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); }
-  figcaption { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.65rem; line-height: 1.5; }
+  figcaption { font-size: 0.72rem; color: var(--text-body); margin-top: 0.65rem; line-height: 1.5; }
 
   .case-footer {
     padding: 3rem 3rem;
@@ -295,7 +295,7 @@
   <!-- RESEARCH -->
   <div class="section">
     <p class="section-label">Research</p>
-    <h2>Understanding the real workflow</h2>
+    <h2>Understanding the workflow</h2>
     <p>Through stakeholder interviews, I mapped out the key actions and stages of the current workflow. What emerged was that</p>
 
     <div style="border: 1px solid #e5e5e5; border-left: 3px solid #111; padding: 1.25rem; margin: 1.25rem 0; background: #f9f9f9;">
@@ -458,12 +458,12 @@
   <!-- DESIGN REVIEW -->
   <div class="section">
     <p class="section-label">Design Review</p>
-    <h2>Testing with real users</h2>
+    <h2>Testing with users</h2>
     <p>I ran design reviews with three participants: a CIO/Portfolio Manager, a Director of Specs Trading, and an Agency MBS Trader.</p>
 
     <figure style="margin: 1.5rem 0;">
       <img src="design-review.png" alt="Design review feedback spreadsheet" style="width: 100%; border: 1px solid #e5e5e5; display: block;" />
-      <figcaption style="font-size: 0.75rem; color: #888; margin-top: 0.6rem; line-height: 1.5;">Feedback from three participants covering bond browsing, bid submission, negotiation, and post-trade workflows.</figcaption>
+      <figcaption style="font-size: 0.75rem; color: var(--text-body); margin-top: 0.6rem; line-height: 1.5;">Feedback from three participants covering bond browsing, bid submission, negotiation, and post-trade workflows.</figcaption>
     </figure>
 
     <p>Three themes came through:</p>
@@ -490,7 +490,7 @@
   <!-- ITERATION 2 -->
   <div class="section">
     <p class="section-label">Design · Iteration 2</p>
-    <h2>Responding to real user needs</h2>
+    <h2>Responding to user needs</h2>
     <p>The design review reshaped the product. Iteration 2 addressed three things: revising the status labels and visual system, adding the spot price negotiation flow, and building bulk bid management.</p>
 
     <h3 style="font-size:1rem;font-weight:700;color:#000;margin:1.5rem 0 0.75rem;">Status label revisions</h3>
@@ -515,7 +515,7 @@
 
     <figure style="margin:0 0 1.5rem;">
       <img src="status-system-annotated.png" alt="Full status system with stage groupings, win probabilities, and loss states" style="width:100%;border:1px solid var(--border);border-radius:4px;display:block;" />
-      <figcaption style="font-size:0.72rem;color:var(--text-muted);margin-top:0.5rem;">The full status system: stage groupings, trade winning probability at each phase, and loss states.</figcaption>
+      <figcaption style="font-size:0.72rem;color:var(--text-body);margin-top:0.5rem;">The full status system: stage groupings, trade winning probability at each phase, and loss states.</figcaption>
     </figure>
 
     <h3 style="font-size:1rem;font-weight:700;color:#000;margin:2rem 0 0.75rem;">Full ticket flow with spot price negotiation</h3>
@@ -525,7 +525,7 @@
       <div style="background:#111;border-radius:6px;padding:1.25rem;">
         <img src="ticketflow.gif" alt="Full BWIC bid ticket flow" style="width:220px;border-radius:4px;display:block;" />
       </div>
-      <figcaption style="font-size:0.72rem;color:var(--text-muted);margin-top:0.5rem;text-align:center;">The full ticket flow from draft to trade complete, including the spot price negotiation added in iteration 2.</figcaption>
+      <figcaption style="font-size:0.72rem;color:var(--text-body);margin-top:0.5rem;text-align:center;">The full ticket flow from draft to trade complete, including the spot price negotiation added in iteration 2.</figcaption>
     </figure>
 
     <h3 style="font-size:1rem;font-weight:700;color:#000;margin:2.5rem 0 0.75rem;">Bulk trading flow</h3>
@@ -533,12 +533,12 @@
 
     <figure style="margin:2rem 0 0.5rem;">
       <img src="bulk-flow-01-split-view.png" alt="Split view with bid column" style="width:100%;border:1px solid var(--border);display:block;border-radius:4px;" />
-      <figcaption style="font-size:0.72rem;color:var(--text-muted);margin-top:0.5rem;">BWIC list on top, active bids blotter below. Bids entered directly in the Bid column with all 20 trades visible at once.</figcaption>
+      <figcaption style="font-size:0.72rem;color:var(--text-body);margin-top:0.5rem;">BWIC list on top, active bids blotter below. Bids entered directly in the Bid column with all 20 trades visible at once.</figcaption>
     </figure>
 
     <figure style="margin:2rem 0 0.5rem;">
       <img src="bulk-worst-case.png" alt="Bulk blotter with every status type at once" style="width:100%;border:1px solid var(--border);display:block;border-radius:4px;" />
-      <figcaption style="font-size:0.72rem;color:var(--text-muted);margin-top:0.5rem;">Pressure-testing the worst case: every row in a different status. Unlikely in practice, but the global action bar had to handle it, grouping actions by type with counts so nothing gets lost.</figcaption>
+      <figcaption style="font-size:0.72rem;color:var(--text-body);margin-top:0.5rem;">Pressure-testing the worst case: every row in a different status. Unlikely in practice, but the global action bar had to handle it, grouping actions by type with counts so nothing gets lost.</figcaption>
     </figure>
   </div>
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Automating Rates Derivatives Trading — Maggie Chen</title>
+<title>Replacing a 30-Year-Old Trading Tool · Maggie Chen</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -101,7 +101,7 @@
 
 <div class="hero">
   <div class="eyebrow">Case Study 02</div>
-  <h1>Automating Rates Derivatives Trading</h1>
+  <h1>Replacing a 30-Year-Old Trading Tool</h1>
   <div class="meta-grid">
     <div class="meta-item"><span>Company</span><strong>JPMorgan</strong></div>
     <div class="meta-item"><span>Product</span><strong>Execute Platform</strong></div>
@@ -113,20 +113,51 @@
 
 <div class="content">
 
+  <p style="font-family:'Manrope',sans-serif;font-size:clamp(1.5rem,2.8vw,2rem);font-weight:800;color:var(--green);letter-spacing:-0.01em;margin:4rem 0 0;">Part 1 <span style="color:var(--accent);font-weight:400;">·</span> The Sales Tool</p>
+
   <!-- BACKGROUND -->
-  <div class="section">
+  <div class="section" style="border-top:none;">
     <p class="section-label">Background</p>
     <h2>A 30-year-old tool, and the mandate to replace it</h2>
-    <p><strong>Sapphire</strong> has been the primary tool for rates derivatives sales at JPMorgan for over 30 years. It covers the full trade lifecycle: structuring, pricing, client inquiries, and booking. Salespeople have built decades of muscle memory around its shortcuts, field layouts, and quirks.</p>
-    <p>The mandate was to decommission Sapphire and migrate the full sales workflow onto <strong>EWS</strong>, JPMorgan's internal sales execution platform, then extend it to serve external clients on <strong>Execute</strong>, JPMorgan's single-dealer platform. The goal was to have three separate experiences unified under one system.</p>
+    <p><strong>Sapphire</strong> has been the primary tool for rates derivatives sales at JPMorgan for over 30 years. It mainly covers the structuring part of the trading lifecycle. Structuring means building the custom contract behind a trade: the amount, the dates, the rates, and up to 35 other details like payment frequency and day-count rules. Unlike buying a stock, every rates derivatives trade is assembled to order. Salespeople have built decades of muscle memory around Sapphire's shortcuts, field layouts, and quirks.</p>
+    <p>The mandate was to decommission Sapphire and migrate the full sales workflow onto <strong>EWS, JPMorgan's internal sales execution platform</strong>.</p>
+
+    <div style="margin:1.5rem 0;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--bg-warm);">
+      <div class="bg-slide" style="display:block;">
+        <img src="landscape-part1.png" alt="Trading lifecycle map showing Sapphire and EWS coverage" style="width:100%;display:block;" />
+        <div style="font-size:0.72rem;color:var(--text-muted);padding:0.65rem 1rem 0.85rem;">Where the two tools sit in the trading lifecycle. Sapphire covers structuring and pricing for JPMorgan's sales desk. EWS extends through execution and post-trade. Both are internal, front-office tools.</div>
+      </div>
+      <div class="bg-slide" style="display:none;">
+        <img src="sapphire-ui.png" alt="Sapphire UI" style="width:100%;display:block;" />
+        <div style="font-size:0.72rem;color:var(--text-muted);padding:0.65rem 1rem 0.85rem;"><strong style="color:var(--text);">Sapphire</strong> — the 30-year-old structuring and pricing tool. Every field visible at once, dense grids, decades of accumulated shortcuts.</div>
+      </div>
+      <div class="bg-slide" style="display:none;">
+        <img src="ews-ui.png" alt="EWS UI" style="width:100%;display:block;" />
+        <div style="font-size:0.72rem;color:var(--text-muted);padding:0.65rem 1rem 0.85rem;"><strong style="color:var(--text);">EWS</strong> — the internal sales execution platform the workflow would migrate to, shown here with a credit derivatives RFQ ticket.</div>
+      </div>
+      <div style="display:flex;justify-content:center;align-items:center;gap:1rem;padding:0.75rem;border-top:1px solid var(--border);">
+        <button onclick="bgGo(-1)" style="background:none;border:1px solid var(--border);border-radius:4px;padding:0.3rem 0.8rem;cursor:pointer;font-size:0.8rem;color:var(--text-body);">←</button>
+        <span id="bg-dots" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0.1em;">1 / 3</span>
+        <button onclick="bgGo(1)" style="background:none;border:1px solid var(--border);border-radius:4px;padding:0.3rem 0.8rem;cursor:pointer;font-size:0.8rem;color:var(--text-body);">→</button>
+      </div>
+    </div>
+    <script>
+      let bgIdx = 0;
+      function bgGo(dir) {
+        const slides = document.querySelectorAll('.bg-slide');
+        bgIdx = (bgIdx + dir + slides.length) % slides.length;
+        slides.forEach((s, i) => s.style.display = i === bgIdx ? 'block' : 'none');
+        document.getElementById('bg-dots').textContent = (bgIdx + 1) + ' / ' + slides.length;
+      }
+    </script>
   </div>
 
   <!-- DISCOVERY -->
   <div class="section">
     <p class="section-label">Discovery</p>
-    <h2>Advocating for research before design</h2>
-    <p>The project came to me with Jiras already written and requirements already defined. Every requirement was a technical specification: field logic, system behavior, integration rules. No user needs. No reference to how salespeople actually worked. No existing research on this user group at all.</p>
-    <p>I pushed back. Over several weeks, I had conversations with my manager and product stakeholders, proposing roadmaps that included dedicated research time. It was a tough sell. The expectation was to start designing from the Jiras. Jumping straight into wireframes without understanding the people who would use them felt wrong, especially for a tool replacing 30 years of ingrained workflow.</p>
+    <h2>Researching the salespeople before designing their replacement tool</h2>
+    <p>This research was in service of one goal: understanding the salespeople whose 30-year-old tool we were about to take away, so the migration to EWS wouldn't break the workflows their jobs depend on.</p>
+    <p>The project came to me with requirements already written: technical specifications with no user needs and no existing research on this user group. I pushed back and advocated for dedicated research time before any design work started. Over several weeks of conversations with my manager and product stakeholders, the roadmap was reshaped to include a proper discovery phase.</p>
 
     <div class="decision-box">
       <div class="decision-label">The research plan</div>
@@ -135,7 +166,12 @@
     </div>
 
     <h3>On the floor</h3>
-    <p>With buy-in secured, I conducted in-depth research with salespeople on the trading floor: observing workflows, interviewing them about their tools, and mapping how they moved through a day. The goal was to understand not just what Sapphire did, but why people still depended on it after 30 years.</p>
+    <p>With buy-in secured, I ran discovery research with salespeople on the trading floor: <strong>15 sessions with 19 global rates sales participants across 12 desks</strong>, spanning North America, EMEA, and APAC. The research combined <strong>contextual inquiries</strong>, observing salespeople at their desks to understand behaviors, needs, and challenges, with <strong>semi-structured interviews</strong> exploring specific questions about derivatives structuring and trading. The goal was to understand not just what Sapphire did, but why people still depended on it after 30 years.</p>
+
+    <figure>
+      <img src="research-coverage.png" alt="Discovery research coverage: 15 sessions, 19 sales participants, 12 desks across NA, EMEA, and APAC" />
+      <figcaption>Discovery research coverage: 19 global rates sales participants across 12 desks, including hedge fund, macro, insurance/pension, EM, real money, and central bank desks.</figcaption>
+    </figure>
 
     <figure>
       <img src="affinity-map.png" alt="Affinity map showing four research themes" />
@@ -186,34 +222,241 @@
     <p>Salespeople naturally structure <strong>complex trades horizontally</strong> (multi-leg swaps with all legs visible side by side) and <strong>simple trades vertically</strong> (compact fields, minimal edits, fast execution). Sapphire didn't adapt to either. It showed everything, always.</p>
 
     <figure>
-      <img src="sapphire-fields.png" alt="Sapphire fields analysis" />
-      <figcaption>Fields analysis from Sapphire: mapping required fields for day 1, asset-class-specific fields, and keyboard shortcuts salespeople have built muscle memory around.</figcaption>
+      <img src="layouts-lofi.png" alt="Vertical structuring panel for standard trades and horizontal structuring panel for non-standard trades" />
+      <figcaption>Two layouts for two kinds of trades. Vertical for standard, vanilla trades: compact, minimal input. Horizontal for non-standard, highly customized trades: fields laid out in columns for side-by-side comparison.</figcaption>
     </figure>
 
-    <p>The fields analysis confirmed the scale of the problem. Non-standardized swaps require <strong>over 35 configurable fields</strong> that vary by currency, strategy, and region. On top of that, market data refresh was manual. Sales had to actively refresh pricing in a window where clients respond in 10–20 seconds.</p>
+    <p>The fields analysis behind this confirmed the scale of the problem. Non-standardized swaps require <strong>over 35 configurable fields</strong> that vary by currency, strategy, and region. On top of that, market data refresh was manual. Sales had to actively refresh pricing in a window where clients respond in 10–20 seconds.</p>
   </div>
 
-  <!-- THE PIVOT -->
+  <!-- SALES PERSONA -->
   <div class="section">
-    <p class="section-label">The Pivot</p>
-    <h2>The mandate expands</h2>
-    <p>About a year into the research, the business objective shifted. Decommissioning Sapphire and migrating to EWS was no longer the full story.</p>
+    <p class="section-label">The User</p>
+    <h2>The rates derivatives salesperson</h2>
+    <p>The research synthesized into a generalized persona for the primary user of the new tool.</p>
 
-    <div class="pullquote">The new goal: extend the workflow onto Execute, JPMorgan's client-facing single-dealer platform, and unify internal sales, external clients, and external sales and traders under one system.</div>
+    <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.5rem 0;background:#fff;">
+
+      <!-- Header -->
+      <div style="display:flex;align-items:center;gap:2rem;padding:2.25rem 2.5rem;">
+        <div style="width:96px;height:96px;border-radius:50%;background:var(--accent-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Manrope',sans-serif;font-size:2rem;font-weight:800;color:var(--green-mid, #606c38);">M</div>
+        <div>
+          <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:0.35rem;">Rates Derivatives Sales</div>
+          <div style="font-family:'Manrope',sans-serif;font-size:1.75rem;font-weight:800;color:var(--text);margin-bottom:0.4rem;">Marcus Webb</div>
+          <div style="font-size:0.92rem;font-style:italic;color:var(--text-muted);">"If the price isn't back in seconds, the client has already asked another bank."</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:240px 1fr;">
+
+        <!-- Sidebar -->
+        <div style="background:#283618;color:#f7f6f3;padding:2rem 1.75rem;">
+          <div style="font-family:'Manrope',sans-serif;font-size:0.95rem;font-weight:800;margin-bottom:1rem;">Info</div>
+          <div style="display:flex;flex-direction:column;gap:0.55rem;font-size:0.8rem;margin-bottom:2.25rem;">
+            <div style="display:flex;justify-content:space-between;"><span style="font-weight:700;">Age</span><span style="color:rgba(247,246,243,0.75);">36</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="font-weight:700;">Role</span><span style="color:rgba(247,246,243,0.75);">VP, Rates Sales</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="font-weight:700;">Desk</span><span style="color:rgba(247,246,243,0.75);">Hedge Fund / Macro</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="font-weight:700;">Location</span><span style="color:rgba(247,246,243,0.75);">New York</span></div>
+          </div>
+
+          <div style="font-family:'Manrope',sans-serif;font-size:0.95rem;font-weight:800;margin-bottom:1rem;">Personality</div>
+          <div style="display:flex;flex-direction:column;gap:1rem;">
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:0.68rem;color:rgba(247,246,243,0.75);margin-bottom:0.3rem;"><span>Introvert</span><span>Extrovert</span></div>
+              <div style="position:relative;height:2px;background:rgba(247,246,243,0.3);"><div style="position:absolute;top:50%;left:78%;transform:translate(-50%,-50%);width:11px;height:11px;border-radius:50%;background:#f7f6f3;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:0.68rem;color:rgba(247,246,243,0.75);margin-bottom:0.3rem;"><span>Analytical</span><span>Creative</span></div>
+              <div style="position:relative;height:2px;background:rgba(247,246,243,0.3);"><div style="position:absolute;top:50%;left:22%;transform:translate(-50%,-50%);width:11px;height:11px;border-radius:50%;background:#f7f6f3;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:0.68rem;color:rgba(247,246,243,0.75);margin-bottom:0.3rem;"><span>Busy</span><span>Time rich</span></div>
+              <div style="position:relative;height:2px;background:rgba(247,246,243,0.3);"><div style="position:absolute;top:50%;left:8%;transform:translate(-50%,-50%);width:11px;height:11px;border-radius:50%;background:#f7f6f3;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:0.68rem;color:rgba(247,246,243,0.75);margin-bottom:0.3rem;"><span>Messy</span><span>Organized</span></div>
+              <div style="position:relative;height:2px;background:rgba(247,246,243,0.3);"><div style="position:absolute;top:50%;left:62%;transform:translate(-50%,-50%);width:11px;height:11px;border-radius:50%;background:#f7f6f3;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:0.68rem;color:rgba(247,246,243,0.75);margin-bottom:0.3rem;"><span>Independent</span><span>Team player</span></div>
+              <div style="position:relative;height:2px;background:rgba(247,246,243,0.3);"><div style="position:absolute;top:50%;left:70%;transform:translate(-50%,-50%);width:11px;height:11px;border-radius:50%;background:#f7f6f3;"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main -->
+        <div style="padding:2rem 2.5rem;">
+          <div style="margin-bottom:1.75rem;">
+            <div style="font-family:'Manrope',sans-serif;font-size:0.95rem;font-weight:800;color:var(--text);margin-bottom:0.5rem;">About</div>
+            <p style="font-size:0.85rem;color:var(--text-body);line-height:1.7;margin:0;">Covers institutional clients trading interest rate swaps across hedge fund and macro accounts. His day splits between executing high-volume vanilla swaps as fast as possible and structuring complex multi-leg trades with traders. He communicates over chat and voice, and has deep muscle memory in Sapphire after years on the desk.</p>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.75rem;margin-bottom:1.75rem;">
+            <div>
+              <div style="font-family:'Manrope',sans-serif;font-size:0.95rem;font-weight:800;color:var(--text);margin-bottom:0.5rem;">Goals</div>
+              <ul style="list-style:disc;padding-left:1.1rem;display:flex;flex-direction:column;gap:0.35rem;margin:0;">
+                <li style="font-size:0.82rem;color:var(--text-body);line-height:1.6;">Win the trade inside the 10–20 second pricing window</li>
+                <li style="font-size:0.82rem;color:var(--text-body);line-height:1.6;">Judge the trader price, set the right markup, track the all-in</li>
+                <li style="font-size:0.82rem;color:var(--text-body);line-height:1.6;">Move fluidly between fast vanilla execution and complex structuring</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-family:'Manrope',sans-serif;font-size:0.95rem;font-weight:800;color:var(--text);margin-bottom:0.5rem;">Needs</div>
+              <ul style="list-style:disc;padding-left:1.1rem;display:flex;flex-direction:column;gap:0.35rem;margin:0;">
+                <li style="font-size:0.82rem;color:var(--text-body);line-height:1.6;">All pricing components visible at once: trader price, markup, all-in</li>
+                <li style="font-size:0.82rem;color:var(--text-body);line-height:1.6;">Keyboard shortcuts, density, minimal clicks</li>
+                <li style="font-size:0.82rem;color:var(--text-body);line-height:1.6;">Live market data with no manual refresh</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.75rem;">
+            <div>
+              <div style="font-family:'Manrope',sans-serif;font-size:0.95rem;font-weight:800;color:var(--text);margin-bottom:0.5rem;">Pain Points</div>
+              <ul style="list-style:disc;padding-left:1.1rem;display:flex;flex-direction:column;gap:0.35rem;margin:0;">
+                <li style="font-size:0.82rem;color:var(--text-body);line-height:1.6;">Manual re-entry between chat and tools</li>
+                <li style="font-size:0.82rem;color:var(--text-body);line-height:1.6;">Every field shown at once, regardless of trade complexity</li>
+                <li style="font-size:0.82rem;color:var(--text-body);line-height:1.6;">Compliance steps that interrupt the flow at the moment speed matters</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-family:'Manrope',sans-serif;font-size:0.95rem;font-weight:800;color:var(--text);margin-bottom:0.5rem;">Frustrations</div>
+              <ul style="list-style:disc;padding-left:1.1rem;display:flex;flex-direction:column;gap:0.35rem;margin:0;">
+                <li style="font-size:0.82rem;color:var(--text-body);line-height:1.6;">Prices go stale while waiting for clients to respond</li>
+                <li style="font-size:0.82rem;color:var(--text-body);line-height:1.6;">Repetitive manual tasks that add no value to the trade</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparison strip -->
+      <div style="padding:1.25rem 2.5rem;border-top:1px solid var(--border);background:var(--bg-warm);display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;">
+        <div><div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-muted);margin-bottom:0.25rem;">Expertise</div><div style="font-size:0.85rem;font-weight:600;color:var(--green);">Expert</div></div>
+        <div><div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-muted);margin-bottom:0.25rem;">Speed Need</div><div style="font-size:0.85rem;font-weight:600;color:var(--green);">Seconds</div></div>
+        <div><div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-muted);margin-bottom:0.25rem;">Prices Seen</div><div style="font-size:0.85rem;font-weight:600;color:var(--green);">Trader + Markup + All-in</div></div>
+        <div><div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-muted);margin-bottom:0.25rem;">Customization</div><div style="font-size:0.85rem;font-weight:600;color:var(--green);">Full control, 35+ fields</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PART 1: DESIGN & TESTING -->
+  <div class="section">
+    <p class="section-label">Design & Testing</p>
+    <h2>The horizontal ticket</h2>
+    <p>With the research insights and persona in place, the design direction was clear. EWS already had a <strong>vertical ticket layout</strong>, used for booking workflows in other asset classes. But a vertical layout can't handle non-standard swaps with <strong>35+ customizable fields</strong>: too much scrolling, no way to compare legs side by side.</p>
+    <p>So I designed a <strong>horizontal, grid-based ticket</strong> for the sales workflow, with trade details laid out in columns and collapsible sections for booking, quotes, and RFQ details.</p>
+
+    <figure style="margin:1.5rem 0;">
+      <img src="part1-prototype.gif" alt="The horizontal grid-based ticket prototype in EWS" style="width:100%;border:1px solid var(--border);border-radius:4px;display:block;" />
+      <figcaption style="font-size:0.72rem;color:var(--text-muted);margin-top:0.5rem;">The horizontal ticket prototype: trade details in a grid, with collapsible Booking, Quotes, and RFQ sections.</figcaption>
+    </figure>
+
+    <p>I then tested the design with <strong>13 salespeople across North America, EMEA, and APAC</strong>, all current Sapphire and EWS users, in task-based think-aloud sessions. Participants worked through three scenarios on an interactive prototype: trading a vanilla swap end to end, creating a trade manually, and updating trade parameters, while I measured completion, time on task, and satisfaction.</p>
+
+    <div style="background:var(--accent-light);border-radius:6px;padding:1.5rem 1.75rem;margin:1.5rem 0;">
+      <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:var(--accent-muted);margin-bottom:0.75rem;">What testing found</div>
+      <p style="font-size:0.9rem;color:var(--text-body);line-height:1.7;margin:0 0 0.75rem;"><strong>92% task completion across the three scenarios.</strong> The grid-based ticket worked: capturing, executing, updating, and booking trades all tested without significant issues.</p>
+      <p style="font-size:0.9rem;color:var(--text-body);line-height:1.7;margin:0;"><strong>Pricing was the gap.</strong> The quote stages fell short of expectations: salespeople wanted the mid price streaming the moment a ticket opened, and quotes back within 5–7 seconds. This became a priority for both design and engineering.</p>
+    </div>
+
+    <p>The horizontal ticket was validated and the build was underway. Then the mandate shifted.</p>
+  </div>
+
+  </div>
+
+  <!-- THE PIVOT — wave breaker -->
+  <div style="line-height:0;">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="width:100%;height:48px;display:block;">
+      <path d="M0,40 C240,10 480,55 720,35 C960,15 1200,50 1440,25 L1440,60 L0,60 Z" fill="#EFF0E8"/>
+    </svg>
+  </div>
+  <section style="position:relative; padding: 4rem 3rem 5rem; border: none; background: #EFF0E8;">
+    <div style="position:absolute; inset:0; background:
+      radial-gradient(ellipse 60% 50% at 18% 30%, rgba(96,108,56,0.08) 0%, transparent 65%),
+      radial-gradient(ellipse 55% 55% at 80% 70%, rgba(102,155,188,0.08) 0%, transparent 65%); pointer-events:none;"></div>
+    <div style="max-width: 780px; position: relative;">
+      <p style="font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.22em; color: var(--accent); font-weight: 600; margin-bottom: 1rem;">The Pivot</p>
+      <h2 style="font-family: 'Manrope', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; color: var(--green); letter-spacing: -0.01em; line-height: 1.25; margin-bottom: 1.25rem;">As the team started building, the mandate shifted.</h2>
+      <p style="font-size: 0.95rem; color: var(--text-body); line-height: 1.75; max-width: 640px;">A larger organizational change redrew the goal. Decommissioning Sapphire and migrating to EWS was no longer the full story: the new mandate was to extend the workflow onto Execute, JPMorgan's client-facing platform, and unify internal sales, external clients, and external sales and traders under one system.</p>
+    </div>
+  </section>
+  <div style="line-height:0;">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="width:100%;height:48px;display:block;transform:scaleY(-1);">
+      <path d="M0,40 C280,15 520,55 760,30 C1000,10 1240,45 1440,28 L1440,60 L0,60 Z" fill="#EFF0E8"/>
+    </svg>
+  </div>
+
+  <div class="content">
+  <p style="font-family:'Manrope',sans-serif;font-size:clamp(1.5rem,2.8vw,2rem);font-weight:800;color:var(--green);letter-spacing:-0.01em;margin:4rem 0 0;">Part 2 <span style="color:var(--accent);font-weight:400;">·</span> One Platform for Everyone</p>
+  <div class="section" style="border-top: none; padding-top: 1.5rem;">
+
+    <p>The platform landscape now looked different. Execute, previously covering only client-facing execution, would absorb the sales workflow too:</p>
 
     <figure>
-      <img src="cs2-platform-landscape.png" alt="Platform landscape showing Sapphire, EWS, and Execute across JPMorgan and Client layers" />
-      <figcaption>Platform landscape across the trade lifecycle. Sapphire (green) covers structuring and pricing for sales only. EWS (teal) extends into execution. Execute (dashed) spans both JPMorgan and Client layers.</figcaption>
+      <img src="landscape-part2.png" alt="Trading lifecycle map with Execute added spanning the client layer" />
+      <figcaption>The landscape after the pivot. Execute (orange) spans the client layer from structuring through post-trade, and now absorbs the sales workflow being built for EWS.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="execute-fx-ui.png" alt="Execute FX price tiles" />
+      <figcaption>Execute, JPMorgan's client-facing platform. At the time it covered FX and commodities, shown here with its price tile interface. Rates derivatives would bring a far more complex asset class onto it.</figcaption>
     </figure>
 
     <p>This was a significant expansion. Execute was built for clients, not salespeople. Since it's a single-dealer platform where clients come to trade, <strong>both a sales ticket and a client ticket were required</strong>. The same trade needed to work for the salesperson structuring it and the client executing it.</p>
 
-    <p>I mapped the workflow priorities across the three user groups the platform would need to serve:</p>
+    <p>I mapped the workflow priorities across the three user groups the platform would need to serve.</p>
 
-    <figure>
-      <img src="cs2-user-assessments.png" alt="Radar charts comparing workflow priorities across internal salespeople, external clients, and external sales and traders" />
-      <figcaption>Workflow assessment across three user groups. Internal sales prioritize customizability and quick execution. External clients prioritize clean UI and compliance. External sales and traders fall in between.</figcaption>
-    </figure>
+    <div style="margin:1.5rem 0;">
+      <div id="users-carousel" style="border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--bg-warm);">
+
+        <!-- Slide 1: comparison -->
+        <div class="uc-slide" style="display:block;padding:3rem;">
+          <div style="display:grid;grid-template-columns:1fr 1px 1fr;gap:2.5rem;align-items:start;">
+            <div>
+              <div style="font-family:'Manrope',sans-serif;font-size:1.15rem;font-weight:800;color:var(--accent);margin-bottom:1.25rem;">Internal Sales</div>
+              <div style="display:flex;flex-direction:column;gap:1rem;">
+                <div style="font-size:0.95rem;color:var(--text);line-height:1.6;"><strong>Customizability.</strong> Deep control over trade parameters.</div>
+                <div style="font-size:0.95rem;color:var(--text);line-height:1.6;"><strong>Speed above all.</strong> Shortcuts, density, minimal clicks.</div>
+                <div style="font-size:0.95rem;color:var(--text);line-height:1.6;"><strong>Full pricing detail.</strong> Markup, all-in, per-leg economics.</div>
+              </div>
+            </div>
+            <div style="background:var(--border);height:100%;"></div>
+            <div>
+              <div style="font-family:'Manrope',sans-serif;font-size:1.15rem;font-weight:800;color:var(--navy);margin-bottom:1.25rem;">External Clients</div>
+              <div style="display:flex;flex-direction:column;gap:1rem;">
+                <div style="font-size:0.95rem;color:var(--text);line-height:1.6;"><strong>Clarity.</strong> Clean interface with familiar conventions.</div>
+                <div style="font-size:0.95rem;color:var(--text);line-height:1.6;"><strong>Compliance first.</strong> Guardrails over configurability.</div>
+                <div style="font-size:0.95rem;color:var(--text);line-height:1.6;"><strong>One price.</strong> Not the pricing mechanics behind it.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2: radar charts -->
+        <div class="uc-slide" style="display:none;padding:2rem;">
+          <img src="cs2-user-assessments.png" alt="Radar charts comparing workflow priorities across internal salespeople, external clients, and external sales and traders" style="width:100%;display:block;" />
+          <div style="font-size:0.72rem;color:var(--text-muted);margin-top:0.75rem;">Workflow assessment across three user groups. Internal sales prioritize customizability and quick execution. External clients prioritize clean UI and compliance. External sales and traders fall in between.</div>
+        </div>
+
+        <!-- Controls -->
+        <div style="display:flex;justify-content:center;align-items:center;gap:1rem;padding:0.85rem;border-top:1px solid var(--border);">
+          <button onclick="ucGo(-1)" style="background:none;border:1px solid var(--border);border-radius:4px;padding:0.3rem 0.8rem;cursor:pointer;font-size:0.8rem;color:var(--text-body);">←</button>
+          <span id="uc-dots" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0.1em;">1 / 2</span>
+          <button onclick="ucGo(1)" style="background:none;border:1px solid var(--border);border-radius:4px;padding:0.3rem 0.8rem;cursor:pointer;font-size:0.8rem;color:var(--text-body);">→</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let ucIdx = 0;
+      function ucGo(dir) {
+        const slides = document.querySelectorAll('#users-carousel .uc-slide');
+        ucIdx = (ucIdx + dir + slides.length) % slides.length;
+        slides.forEach((s, i) => s.style.display = i === ucIdx ? 'block' : 'none');
+        document.getElementById('uc-dots').textContent = (ucIdx + 1) + ' / ' + slides.length;
+      }
+    </script>
 
     <p>The profiles are visibly different. Internal salespeople need deep customizability and fast execution. External clients need a clean, compliant interface. Designing for one audience would underserve the other. This confirmed the need for a <strong>modular architecture</strong>: shared trade economics, audience-specific everything else.</p>
     <p>The research remained directly relevant. The users were the same, the asset class was the same, the pain points were the same. The platform had changed. The problem hadn't.</p>
@@ -254,89 +497,102 @@
       <div style="font-size:0.72rem;color:var(--text-muted);margin-top:0.5rem;">Salespeople consistently distinguished between trades that needed structuring and trades that just needed speed. This confirmed standard swaps as the right starting point.</div>
     </div>
 
-    <p>Standard swaps account for the majority of trading volume. Research confirmed salespeople didn't need to model them, just execute them fast. Starting here meant <strong>delivering real value quickly</strong> while the complex instruments were scoped for later phases.</p>
+    <p>Standard swaps account for the majority of trading volume. Research confirmed salespeople didn't need to model them, just execute them fast. On the client side, standard swaps are also what clients trade most, and the trades they're most likely to self-serve: structuring complex trades themselves is time-consuming and error-prone, so those stay with sales. Starting here meant <strong>delivering real value quickly</strong> while the complex instruments were scoped for later phases.</p>
   </div>
 
   <!-- DESIGN: MODULAR ARCHITECTURE -->
   <div class="section">
     <p class="section-label">Design · Modular Architecture</p>
     <h2>One ticket, two audiences</h2>
-    <p>Since Execute serves both salespeople and clients, the ticket needed to work for both. Rather than building two separate designs, I created a <strong>modular architecture</strong>: shared sections for trade economics, and audience-specific sections for workflow and account details.</p>
 
-    <figure>
-      <img src="cs2-modular-architecture.png" alt="Sales vs Client ticket comparison showing shared and unique sections" />
-      <figcaption>Sales ticket (left) and client ticket (right) in compact view. Shared sections in the center, audience-specific sections called out.</figcaption>
-    </figure>
+    <div style="background:var(--accent-light);border-radius:6px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;">
+      <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:var(--accent-muted);margin-bottom:0.5rem;">How might we...</div>
+      <div style="font-family:'Manrope',sans-serif;font-size:1.05rem;font-weight:700;color:var(--green);line-height:1.5;">Build a single ticket architecture that scales in detail with the user's expertise?</div>
+    </div>
 
-    <div class="insight-grid">
-      <div class="insight">
-        <div class="insight-num">Shared</div>
-        <div class="insight-label">Between sales and client</div>
-        <p>The core trade — strategy, notional, DV01, per-leg pricing, and the solve button — is identical for both users. A change on one side propagates to the other. This means the economics engine was built once and applied everywhere.</p>
+    <p>Although we were designing for two distinct user groups with different priorities, at its core this is a trading ticket, and the key stages of the workflow are largely the same for everyone. That made the architecture decision clear: the ticket would be <strong>modular</strong>. Build the common fields that work for both sales and clients first, then layer on the details each group needs. Sales, as the group with deeper trading literacy, gets more.</p>
+
+    <p>Every section of the ticket went through this process, including admin details like account and product. But two sections demanded the most design attention:</p>
+
+    <div style="display:flex;flex-direction:column;gap:1rem;margin:1.25rem 0 1.5rem;">
+      <div style="border-left:3px solid var(--accent);padding:0.25rem 0 0.25rem 1.25rem;">
+        <div style="font-size:0.95rem;font-weight:700;color:var(--text);margin-bottom:0.2rem;">1. The price panel</div>
+        <div style="font-size:0.9rem;color:var(--text-body);line-height:1.7;">The bread and butter for both groups. Because this flow is built for speed, the panel had to deliver maximum ease of use while displaying every pricing detail clearly, with what counts as "every detail" differing by audience.</div>
       </div>
-      <div class="insight">
-        <div class="insight-num">Unique</div>
-        <div class="insight-label">Specific to each group</div>
-        <p>Sales sees workflow context: clearing method, trader, client SPN, and markup. Clients see account details: account name and legal entity. Same trade, different context. Each audience sees only what's relevant to them.</p>
+      <div style="border-left:3px solid var(--accent);padding:0.25rem 0 0.25rem 1.25rem;">
+        <div style="font-size:0.95rem;font-weight:700;color:var(--text);margin-bottom:0.2rem;">2. The economics panel</div>
+        <div style="font-size:0.9rem;color:var(--text-body);line-height:1.7;">Where structuring happens. With more than 35 customizable fields, the challenge was revealing the right level of detail per user group without overwhelming either experience.</div>
       </div>
     </div>
 
-    <h3>The client ticket</h3>
-    <p>The client ticket surfaces the full economics panel — identical to what sales sees — while replacing sales-specific workflow fields with the account details a client needs to execute. The annotations below map each section to its audience.</p>
-
-    <figure>
-      <img src="clientticket.png" alt="Client ticket all sections open" />
-      <figcaption>Client ticket — all sections open. Left annotations mark client-facing sections (Workflow Stage, Trade Summary, Key Params, Quote Panel, Account Details). Right annotations mark the Economics panel structure shared with sales (Per Leg Price, Cross Stream Details, Per Stream Details).</figcaption>
-    </figure>
-
-    <p>This approach meant shared patterns could evolve once and apply to both experiences, while each audience's specific needs stayed independent. It also reduced development overhead: the core economics engine was built once and inherited by both tickets.</p>
-
-    <figure>
-      <img src="cs2-sales-ticket-full.png" alt="Full expanded sales ticket" />
-      <figcaption>Sales ticket, all sections open. Economics tab shows the full horizontal layout for a multi-leg fly swap (2Y/5Y/10Y). Purple annotations mark each section's purpose.</figcaption>
-    </figure>
+    <p>Prioritizing vanilla trades also settled the layout question. Because standard swaps are relatively simple and built for fast execution, the ticket defaults to the <strong>vertical layout</strong> for both sales and clients: compact, quick to scan, minimal input. The horizontal layout stays one step away for the complex trades that need it.</p>
   </div>
 
-  <!-- DESIGN: REGULATORY FLOW -->
+  <!-- DESIGN: LO-FI -->
   <div class="section">
-    <p class="section-label">Design · Regulatory Flow</p>
-    <h2>The compliance gate</h2>
-    <p>Before any trade could proceed on Execute, the regulatory checks had to pass. <strong>KYC, suitability, and MiFID II compliance</strong> were non-negotiable prerequisites. This work was entirely foundational: nothing else could be built until it was done.</p>
+    <p class="section-label">Design · Lo-Fi</p>
+    <h2>Working out the differences in wireframes</h2>
+    <p>I explored lo-fi wireframes for the two focus areas, plus the regulatory flow, to work out the key differences between the sales and client tickets while keeping the same modular layout.</p>
 
-    <figure>
-      <img src="cs2-reg-lofi.png" alt="Lo-fi wireframe of the CIT Check regulatory flow" />
-      <figcaption>Lo-fi wireframe: CIT Check panel with pass/fail/warning states and the ticket's Regulation tab trigger.</figcaption>
+    <h3>The price panel</h3>
+    <p>Sales care about more prices than clients. Clients see one thing: the price JPMorgan quotes them. Sales need to see whether the <strong>trader price</strong> is fair, decide what <strong>markup</strong> to add on top, and track the <strong>all-in price</strong>, the sum of the two, which is what they care about most. Same panel pattern, different depth of pricing detail.</p>
+
+    <figure style="margin:1.25rem 0 1.75rem;">
+      <img src="price-panel-lofi.png" alt="Lo-fi wireframes comparing client and sales price panels" style="width:100%;border:1px solid var(--border);border-radius:4px;display:block;" />
+      <figcaption style="font-size:0.72rem;color:var(--text-muted);margin-top:0.5rem;">Client price panel (left) shows one main price. Sales price panel (right) adds trader price with timer, markup, all-in price, and mode controls. Shared fields in blue, audience-specific fields in pink.</figcaption>
     </figure>
 
-    <p>Within the compliance constraint, I focused on reducing friction. The design rationale came from the floor research: salespeople aren't reviewing the regulatory panel — they're trying to close the trade before prices move.</p>
+    <h3>The structuring panel</h3>
+    <p>Sapphire showed every structuring field at once, regardless of trade complexity. The new design reveals fields as needed: they auto-display based on the product and strategy selected, and the level of detail adapts to the audience. The client panel keeps the secondary section collapsed by default, while sales gets the full field set plus Regulation and Booking tabs.</p>
+
+    <div style="margin:1.25rem 0 1.75rem;border:1px solid var(--border);border-radius:4px;overflow:hidden;">
+      <div class="sp-slide" style="display:block;">
+        <img src="structuring-panel-lofi.png" alt="Lo-fi wireframes comparing client and sales structuring panels" style="width:100%;display:block;" />
+        <div style="font-size:0.72rem;color:var(--text-muted);padding:0.65rem 1rem 0;">The client structuring panel (left) keeps the secondary section collapsed by default. The sales panel (right) adds Regulation and Booking tabs and expands the full field set.</div>
+      </div>
+      <div class="sp-slide" style="display:none;">
+        <img src="cs2-modular-architecture.png" alt="Sales vs Client ticket comparison showing shared and unique sections" style="width:100%;display:block;" />
+        <div style="font-size:0.72rem;color:var(--text-muted);padding:0.65rem 1rem 0;">Sales ticket (left) and client ticket (right) in compact view. Shared sections in the center, audience-specific sections called out.</div>
+      </div>
+      <div style="display:flex;justify-content:center;align-items:center;gap:1rem;padding:0.75rem;">
+        <button onclick="spGo(-1)" style="background:none;border:1px solid var(--border);border-radius:4px;padding:0.3rem 0.8rem;cursor:pointer;font-size:0.8rem;color:var(--text-body);">←</button>
+        <span id="sp-dots" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0.1em;">1 / 2</span>
+        <button onclick="spGo(1)" style="background:none;border:1px solid var(--border);border-radius:4px;padding:0.3rem 0.8rem;cursor:pointer;font-size:0.8rem;color:var(--text-body);">→</button>
+      </div>
+    </div>
+    <script>
+      let spIdx = 0;
+      function spGo(dir) {
+        const slides = document.querySelectorAll('.sp-slide');
+        spIdx = (spIdx + dir + slides.length) % slides.length;
+        slides.forEach((s, i) => s.style.display = i === spIdx ? 'block' : 'none');
+        document.getElementById('sp-dots').textContent = (spIdx + 1) + ' / ' + slides.length;
+      }
+    </script>
+
+    <h3>The regulatory flow</h3>
+    <p>Before any trade could proceed, the regulatory checks had to pass.</p>
 
     <div style="background:var(--bg-warm);border:1px solid var(--border);border-left:3px solid var(--accent);padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 4px 4px 0;">
       <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:var(--accent-muted);margin-bottom:0.75rem;">From the research</div>
-      <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:0.75rem;">
-        <div style="font-size:0.95rem;color:var(--accent);font-style:italic;line-height:1.6;">"As long as it's not a Do Not Trade, I don't need to look at it."</div>
-      </div>
-      <div style="font-size:0.72rem;color:var(--text-muted);line-height:1.6;">The same 10–20 second pricing window applied here. Every extra click on the compliance panel is time the market is moving. Salespeople care about one outcome: can they proceed? If there's no hard <strong>Do Not Trade</strong>, they want through it as fast as possible.</div>
+      <div style="font-size:0.95rem;color:var(--accent);font-style:italic;line-height:1.6;">"As long as it's not a Do Not Trade, I don't need to look at it."</div>
     </div>
 
-    <div class="reg-steps">
-      <div class="reg-step">
-        <div class="reg-step-label">Design decision</div>
-        <div class="reg-step-title">Hide completed checks</div>
-        <div class="reg-step-desc">Salespeople don't need to review what already passed. Passed checks collapse by default. The panel shows only what still needs action.</div>
-      </div>
-      <div class="reg-step">
-        <div class="reg-step-label">Design decision</div>
-        <div class="reg-step-title">Auto-expand errors</div>
-        <div class="reg-step-desc">The only thing that demands attention is a hard failure. Failed checks open automatically, surfacing exactly what needs to be resolved.</div>
-      </div>
-      <div class="reg-step">
-        <div class="reg-step-label">Design decision</div>
-        <div class="reg-step-title">Auto-advance on green</div>
-        <div class="reg-step-desc">Once all checks pass, there's no reason to linger on the compliance panel. The flow moves forward automatically so sales can stay focused on the trade, not the infrastructure behind it.</div>
-      </div>
-    </div>
+    <p>Salespeople aren't reviewing the compliance panel; they're trying to close the trade before prices move. So my focus was <strong>reducing friction</strong>: hide checks that already passed, auto-expand the failures that need action, and move the flow forward automatically once everything is green.</p>
 
-    <h3 style="margin-top:2.5rem;">High-fidelity: the full regulatory flow</h3>
+    <figure>
+      <img src="cs2-reg-lofi.png" alt="Lo-fi wireframe of the regulatory check flow" />
+      <figcaption>Lo-fi wireframe: the compliance panel with pass, fail, and warning states.</figcaption>
+    </figure>
+
+  </div>
+
+  <!-- DESIGN: HI-FI -->
+  <div class="section">
+    <p class="section-label">Design · Hi-Fi</p>
+    <h2>The full flows in high fidelity</h2>
+
+    <h3>The regulatory flow</h3>
 
     <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0.75rem;margin:1.5rem 0;">
       <div>
@@ -360,33 +616,19 @@
         <div style="font-size:0.68rem;color:var(--text-body);margin-top:0.5rem;line-height:1.5;"><strong style="color:var(--text);">5. CIT Passed</strong><br/>All green. Panel hidden by default. If reopened, all rows collapsed with green checks.</div>
       </div>
     </div>
-  </div>
 
-  <!-- DESIGN: STRUCTURING -->
-  <div class="section">
-    <p class="section-label">Design · Structuring</p>
-    <h2>Making the complex simple and the simple fast</h2>
-    <p>Research surfaced two problems. <strong>Sapphire showed every structuring field at once</strong>, regardless of how complex the trade was, creating noise for standard trades that needed only a handful of inputs. And <strong>market data was stale</strong>: sales had to manually refresh pricing in a window where clients respond in seconds.</p>
+    <h3>The ticket</h3>
+    <p>The client ticket surfaces the full economics panel — identical to what sales sees — while replacing sales-specific workflow fields with the account details a client needs to execute.</p>
 
-    <div class="insight-grid">
-      <div class="insight">
-        <div class="insight-num">01</div>
-        <div class="insight-label">Field overload</div>
-        <div style="font-size:0.95rem;font-style:italic;color:var(--accent);line-height:1.55;margin-bottom:0.5rem;">"I perform repetitive manual tasks."</div>
-        <div style="font-size:0.95rem;font-style:italic;color:var(--accent);line-height:1.55;margin-bottom:0.5rem;">"I need to generate & book all swap products in one tab."</div>
-        <p>The legacy tool didn't distinguish between what was needed and what was available. Every field was shown, always.</p>
-      </div>
-      <div class="insight">
-        <div class="insight-num">02</div>
-        <div class="insight-label">Stale pricing</div>
-        <div style="font-size:0.95rem;font-style:italic;color:var(--accent);line-height:1.55;margin-bottom:0.5rem;">"Client takes too long to respond and Sales monitors refreshed Rate in case a re-quote is needed."</div>
-        <p>10-20 seconds was the window before prices went stale. Manual refresh introduced risk at the moment speed mattered most.</p>
-      </div>
-    </div>
+    <figure>
+      <img src="clientticket.png" alt="Client ticket all sections open" />
+      <figcaption>Client ticket — all sections open. Left annotations mark client-facing sections (Workflow Stage, Trade Summary, Key Params, Quote Panel, Account Details). Right annotations mark the Economics panel structure shared with sales (Per Leg Price, Cross Stream Details, Per Stream Details).</figcaption>
+    </figure>
 
-    <h3>The design response</h3>
-    <p>Fields auto-display based on the product and strategy selected. A <strong>standard IRS</strong> shows only what's needed, arranged vertically for compact, fast execution. A <strong>multi-leg fly swap</strong> opens the full horizontal layout, with per-leg details side by side for comparison. <strong>Sales can switch between layouts at any time.</strong></p>
-    <p>For pricing, <strong>live market data is built directly into the ticket</strong>. No manual refresh. Sales always see the current rate.</p>
+    <figure>
+      <img src="cs2-sales-ticket-full.png" alt="Full expanded sales ticket" />
+      <figcaption>Sales ticket, all sections open. Economics tab shows the full horizontal layout for a multi-leg fly swap (2Y/5Y/10Y). Purple annotations mark each section's purpose.</figcaption>
+    </figure>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0;">
       <div>
