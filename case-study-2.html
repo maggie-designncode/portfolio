@@ -57,6 +57,20 @@
   .insight-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 600; }
   .insight p { font-size: 0.82rem; color: var(--text-body); margin: 0; line-height: 1.6; }
 
+
+  /* Persona responsive */
+  .persona-grid { display: grid; grid-template-columns: 240px 1fr; }
+  .persona-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; }
+  .persona-strip { padding: 1.25rem 2.5rem; border-top: 1px solid var(--border); background: var(--bg-warm); display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  .persona-header { display: flex; align-items: center; gap: 2rem; padding: 2.25rem 2.5rem; }
+  @media (max-width: 640px) {
+    .persona-grid { grid-template-columns: 1fr; }
+    .persona-two-col { grid-template-columns: 1fr; gap: 1.25rem; }
+    .persona-strip { grid-template-columns: 1fr 1fr; padding: 1.25rem 1.5rem; gap: 1rem; }
+    .persona-header { flex-direction: column; align-items: flex-start; gap: 1rem; padding: 1.5rem; }
+    .persona-main { padding: 1.5rem !important; }
+    .persona-sidebar { padding: 1.5rem !important; }
+  }
   .theme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
   .theme { border: 1px solid var(--border); padding: 1.25rem; border-radius: 4px; }
   .theme-title { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
@@ -218,6 +232,8 @@
       </div>
     </div>
 
+    <p>Across all four themes, one thing was clear: salespeople are already overwhelmed by information every day and don't fully trust the systems behind it. The design had to <strong>simplify what's shown</strong>: surface only what's necessary for the trade at hand, and hide the rest.</p>
+
     <h3>Key insight: layout should match trade complexity</h3>
     <p>Salespeople naturally structure <strong>complex trades horizontally</strong> (multi-leg swaps with all legs visible side by side) and <strong>simple trades vertically</strong> (compact fields, minimal edits, fast execution). Sapphire didn't adapt to either. It showed everything, always.</p>
 
@@ -238,7 +254,7 @@
     <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.5rem 0;background:#fff;">
 
       <!-- Header -->
-      <div style="display:flex;align-items:center;gap:2rem;padding:2.25rem 2.5rem;">
+      <div class="persona-header">
         <div style="width:96px;height:96px;border-radius:50%;background:var(--accent-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Manrope',sans-serif;font-size:2rem;font-weight:800;color:var(--green-mid, #606c38);">M</div>
         <div>
           <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:0.35rem;">Rates Derivatives Sales</div>
@@ -247,10 +263,10 @@
         </div>
       </div>
 
-      <div style="display:grid;grid-template-columns:240px 1fr;">
+      <div class="persona-grid">
 
         <!-- Sidebar -->
-        <div style="background:#283618;color:#f7f6f3;padding:2rem 1.75rem;">
+        <div class="persona-sidebar" style="background:#283618;color:#f7f6f3;padding:2rem 1.75rem;">
           <div style="font-family:'Manrope',sans-serif;font-size:0.95rem;font-weight:800;margin-bottom:1rem;">Info</div>
           <div style="display:flex;flex-direction:column;gap:0.55rem;font-size:0.8rem;margin-bottom:2.25rem;">
             <div style="display:flex;justify-content:space-between;"><span style="font-weight:700;">Age</span><span style="color:rgba(247,246,243,0.75);">36</span></div>
@@ -285,13 +301,13 @@
         </div>
 
         <!-- Main -->
-        <div style="padding:2rem 2.5rem;">
+        <div class="persona-main" style="padding:2rem 2.5rem;">
           <div style="margin-bottom:1.75rem;">
             <div style="font-family:'Manrope',sans-serif;font-size:0.95rem;font-weight:800;color:var(--text);margin-bottom:0.5rem;">About</div>
             <p style="font-size:0.85rem;color:var(--text-body);line-height:1.7;margin:0;">Covers institutional clients trading interest rate swaps across hedge fund and macro accounts. His day splits between executing high-volume vanilla swaps as fast as possible and structuring complex multi-leg trades with traders. He communicates over chat and voice, and has deep muscle memory in Sapphire after years on the desk.</p>
           </div>
 
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.75rem;margin-bottom:1.75rem;">
+          <div class="persona-two-col" style="margin-bottom:1.75rem;">
             <div>
               <div style="font-family:'Manrope',sans-serif;font-size:0.95rem;font-weight:800;color:var(--text);margin-bottom:0.5rem;">Goals</div>
               <ul style="list-style:disc;padding-left:1.1rem;display:flex;flex-direction:column;gap:0.35rem;margin:0;">
@@ -310,7 +326,7 @@
             </div>
           </div>
 
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.75rem;">
+          <div class="persona-two-col">
             <div>
               <div style="font-family:'Manrope',sans-serif;font-size:0.95rem;font-weight:800;color:var(--text);margin-bottom:0.5rem;">Pain Points</div>
               <ul style="list-style:disc;padding-left:1.1rem;display:flex;flex-direction:column;gap:0.35rem;margin:0;">
@@ -331,7 +347,7 @@
       </div>
 
       <!-- Comparison strip -->
-      <div style="padding:1.25rem 2.5rem;border-top:1px solid var(--border);background:var(--bg-warm);display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;">
+      <div class="persona-strip">
         <div><div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-muted);margin-bottom:0.25rem;">Expertise</div><div style="font-size:0.85rem;font-weight:600;color:var(--green);">Expert</div></div>
         <div><div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-muted);margin-bottom:0.25rem;">Speed Need</div><div style="font-size:0.85rem;font-weight:600;color:var(--green);">Seconds</div></div>
         <div><div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-muted);margin-bottom:0.25rem;">Prices Seen</div><div style="font-size:0.85rem;font-weight:600;color:var(--green);">Trader + Markup + All-in</div></div>
@@ -357,7 +373,7 @@
     <div style="background:var(--accent-light);border-radius:6px;padding:1.5rem 1.75rem;margin:1.5rem 0;">
       <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:var(--accent-muted);margin-bottom:0.75rem;">What testing found</div>
       <p style="font-size:0.9rem;color:var(--text-body);line-height:1.7;margin:0 0 0.75rem;"><strong>92% task completion across the three scenarios.</strong> The grid-based ticket worked: capturing, executing, updating, and booking trades all tested without significant issues.</p>
-      <p style="font-size:0.9rem;color:var(--text-body);line-height:1.7;margin:0;"><strong>Pricing was the gap.</strong> The quote stages fell short of expectations: salespeople wanted the mid price streaming the moment a ticket opened, and quotes back within 5–7 seconds. This became a priority for both design and engineering.</p>
+      <p style="font-size:0.9rem;color:var(--text-body);line-height:1.7;margin:0;"><strong>Pricing surfaced an engineering gap.</strong> Sales wanted the market mid price streamed, not manually refreshed. This went to the engineering backlog as a priority.</p>
     </div>
 
     <p>The horizontal ticket was validated and the build was underway. Then the mandate shifted.</p>
