@@ -89,7 +89,7 @@
 
   figure { margin: 1.5rem 0; }
   figure img { width: 100%; border: 1px solid var(--border); display: block; border-radius: 4px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); }
-  figcaption { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.65rem; line-height: 1.5; }
+  figcaption { font-size: 0.72rem; color: var(--text-body); margin-top: 0.65rem; line-height: 1.5; }
 
   .scope-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
   .scope-card { border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; }
@@ -105,6 +105,19 @@
   .case-footer { padding: 3rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; background: #003049; }
   .case-footer a { font-size: 0.82rem; color: rgba(247,246,243,0.7); text-decoration: none; transition: color 0.2s; border-bottom: 1px solid rgba(247,246,243,0.2); padding-bottom: 2px; }
   .case-footer a:hover { color: #f7f6f3; border-bottom-color: #f7f6f3; }
+
+  @media (max-width: 640px) {
+    .content { padding: 0 1.5rem; }
+    .hero { padding: 3rem 1.5rem 0; }
+    .theme-grid { grid-template-columns: 1fr; }
+    .insight-grid { grid-template-columns: 1fr !important; }
+    .meta-grid { grid-template-columns: 1fr 1fr; }
+    div[style*="grid-template-columns:repeat(5,1fr)"] { grid-template-columns: 1fr 1fr !important; }
+    div[style*="grid-template-columns:1fr 1fr"][style*="gap:1rem"] { grid-template-columns: 1fr !important; }
+    div[style*="grid-template-columns:1fr 1px 1fr"] { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+    div[style*="grid-template-columns:repeat(4,1fr)"] { grid-template-columns: 1fr 1fr !important; }
+    .uc-slide { padding: 1.5rem !important; }
+  }
 </style>
 </head>
 <body>
@@ -139,15 +152,15 @@
     <div style="margin:1.5rem 0;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--bg-warm);">
       <div class="bg-slide" style="display:block;">
         <img src="landscape-part1.png" alt="Trading lifecycle map showing Sapphire and EWS coverage" style="width:100%;display:block;" />
-        <div style="font-size:0.72rem;color:var(--text-muted);padding:0.65rem 1rem 0.85rem;">Where the two tools sit in the trading lifecycle. Sapphire covers structuring and pricing for JPMorgan's sales desk. EWS extends through execution and post-trade. Both are internal, front-office tools.</div>
+        <div style="font-size:0.72rem;color:var(--text-body);padding:0.65rem 1rem 0.85rem;">Where the two tools sit in the trading lifecycle. Sapphire covers structuring and pricing for JPMorgan's sales desk. EWS extends through execution and post-trade. Both are internal, front-office tools.</div>
       </div>
       <div class="bg-slide" style="display:none;">
         <img src="sapphire-ui.png" alt="Sapphire UI" style="width:100%;display:block;" />
-        <div style="font-size:0.72rem;color:var(--text-muted);padding:0.65rem 1rem 0.85rem;"><strong style="color:var(--text);">Sapphire</strong> — the 30-year-old structuring and pricing tool. Every field visible at once, dense grids, decades of accumulated shortcuts.</div>
+        <div style="font-size:0.72rem;color:var(--text-body);padding:0.65rem 1rem 0.85rem;"><strong style="color:var(--text);">Sapphire</strong> — the 30-year-old structuring and pricing tool. Every field visible at once, dense grids, decades of accumulated shortcuts.</div>
       </div>
       <div class="bg-slide" style="display:none;">
         <img src="ews-ui.png" alt="EWS UI" style="width:100%;display:block;" />
-        <div style="font-size:0.72rem;color:var(--text-muted);padding:0.65rem 1rem 0.85rem;"><strong style="color:var(--text);">EWS</strong> — the internal sales execution platform the workflow would migrate to, shown here with a credit derivatives RFQ ticket.</div>
+        <div style="font-size:0.72rem;color:var(--text-body);padding:0.65rem 1rem 0.85rem;"><strong style="color:var(--text);">EWS</strong> — the internal sales execution platform the workflow would migrate to, shown here with a credit derivatives RFQ ticket.</div>
       </div>
       <div style="display:flex;justify-content:center;align-items:center;gap:1rem;padding:0.75rem;border-top:1px solid var(--border);">
         <button onclick="bgGo(-1)" style="background:none;border:1px solid var(--border);border-radius:4px;padding:0.3rem 0.8rem;cursor:pointer;font-size:0.8rem;color:var(--text-body);">←</button>
@@ -365,7 +378,7 @@
 
     <figure style="margin:1.5rem 0;">
       <img src="part1-prototype.gif" alt="The horizontal grid-based ticket prototype in EWS" style="width:100%;border:1px solid var(--border);border-radius:4px;display:block;" />
-      <figcaption style="font-size:0.72rem;color:var(--text-muted);margin-top:0.5rem;">The horizontal ticket prototype: trade details in a grid, with collapsible Booking, Quotes, and RFQ sections.</figcaption>
+      <figcaption style="font-size:0.72rem;color:var(--text-body);margin-top:0.5rem;">The horizontal ticket prototype: trade details in a grid, with collapsible Booking, Quotes, and RFQ sections.</figcaption>
     </figure>
 
     <p>I then tested the design with <strong>13 salespeople across North America, EMEA, and APAC</strong>, all current Sapphire and EWS users, in task-based think-aloud sessions. Participants worked through three scenarios on an interactive prototype: trading a vanilla swap end to end, creating a trade manually, and updating trade parameters, while I measured completion, time on task, and satisfaction.</p>
@@ -452,7 +465,7 @@
         <!-- Slide 2: radar charts -->
         <div class="uc-slide" style="display:none;padding:2rem;">
           <img src="cs2-user-assessments.png" alt="Radar charts comparing workflow priorities across internal salespeople, external clients, and external sales and traders" style="width:100%;display:block;" />
-          <div style="font-size:0.72rem;color:var(--text-muted);margin-top:0.75rem;">Workflow assessment across three user groups. Internal sales prioritize customizability and quick execution. External clients prioritize clean UI and compliance. External sales and traders fall in between.</div>
+          <div style="font-size:0.72rem;color:var(--text-body);margin-top:0.75rem;">Workflow assessment across three user groups. Internal sales prioritize customizability and quick execution. External clients prioritize clean UI and compliance. External sales and traders fall in between.</div>
         </div>
 
         <!-- Controls -->
@@ -534,7 +547,7 @@
 
     <figure style="margin:1.25rem 0 1.75rem;">
       <img src="price-panel-lofi.png" alt="Lo-fi wireframes comparing client and sales price panels" style="width:100%;border:1px solid var(--border);border-radius:4px;display:block;" />
-      <figcaption style="font-size:0.72rem;color:var(--text-muted);margin-top:0.5rem;">Client price panel (left) shows one main price. Sales price panel (right) adds trader price with timer, markup, all-in price, and mode controls. Shared fields in blue, audience-specific fields in pink.</figcaption>
+      <figcaption style="font-size:0.72rem;color:var(--text-body);margin-top:0.5rem;">Client price panel (left) shows one main price. Sales price panel (right) adds trader price with timer, markup, all-in price, and mode controls.</figcaption>
     </figure>
 
     <h3>The structuring panel</h3>
@@ -543,11 +556,11 @@
     <div style="margin:1.25rem 0 1.75rem;border:1px solid var(--border);border-radius:4px;overflow:hidden;">
       <div class="sp-slide" style="display:block;">
         <img src="structuring-panel-lofi.png" alt="Lo-fi wireframes comparing client and sales structuring panels" style="width:100%;display:block;" />
-        <div style="font-size:0.72rem;color:var(--text-muted);padding:0.65rem 1rem 0;">The client structuring panel (left) keeps the secondary section collapsed by default. The sales panel (right) adds Regulation and Booking tabs and expands the full field set.</div>
+        <div style="font-size:0.72rem;color:var(--text-body);padding:0.65rem 1rem 0;">The client structuring panel (left) keeps the secondary section collapsed by default. The sales panel (right) adds Regulation and Booking tabs and expands the full field set.</div>
       </div>
       <div class="sp-slide" style="display:none;">
         <img src="cs2-modular-architecture.png" alt="Sales vs Client ticket comparison showing shared and unique sections" style="width:100%;display:block;" />
-        <div style="font-size:0.72rem;color:var(--text-muted);padding:0.65rem 1rem 0;">Sales ticket (left) and client ticket (right) in compact view. Shared sections in the center, audience-specific sections called out.</div>
+        <div style="font-size:0.72rem;color:var(--text-body);padding:0.65rem 1rem 0;">Sales ticket (left) and client ticket (right) in compact view. The shared sections are called out.</div>
       </div>
       <div style="display:flex;justify-content:center;align-items:center;gap:1rem;padding:0.75rem;">
         <button onclick="spGo(-1)" style="background:none;border:1px solid var(--border);border-radius:4px;padding:0.3rem 0.8rem;cursor:pointer;font-size:0.8rem;color:var(--text-body);">←</button>
@@ -630,13 +643,13 @@
         <figure style="margin:0;">
           <img src="cs2-structuring-vertical.png" alt="Horizontal layout" style="width:100%;border:1px solid var(--border);border-radius:4px;box-shadow:0 2px 16px rgba(0,0,0,0.06);display:block;" />
         </figure>
-        <div style="font-size:0.72rem;color:var(--text-muted);margin-top:0.5rem;line-height:1.5;"><strong style="color:var(--text);">Horizontal layout</strong>: multi-leg fly swap with all legs visible side by side. Per-leg pricing, directions, and stream details are comparable at a glance.</div>
+        <div style="font-size:0.72rem;color:var(--text-body);margin-top:0.5rem;line-height:1.5;"><strong style="color:var(--text);">Horizontal layout</strong>: multi-leg fly swap with all legs visible side by side. Per-leg pricing, directions, and stream details are comparable at a glance.</div>
       </div>
       <div>
         <figure style="margin:0;">
           <img src="cs2-structuring-horizontal.png" alt="Vertical layout" style="width:100%;border:1px solid var(--border);border-radius:4px;box-shadow:0 2px 16px rgba(0,0,0,0.06);display:block;" />
         </figure>
-        <div style="font-size:0.72rem;color:var(--text-muted);margin-top:0.5rem;line-height:1.5;"><strong style="color:var(--text);">Vertical layout</strong>: standard IRS with compact fields. Space-efficient for trades where most parameters are pre-populated and minimal edits are needed.</div>
+        <div style="font-size:0.72rem;color:var(--text-body);margin-top:0.5rem;line-height:1.5;"><strong style="color:var(--text);">Vertical layout</strong>: standard IRS with compact fields. Space-efficient for trades where most parameters are pre-populated and minimal edits are needed.</div>
       </div>
     </div>
 
@@ -714,6 +727,13 @@
     </script>
 
     <p>The RFQ panel was also tested as a focused question within the same study. All the key calls to action live in that panel: initiating an RFQ, stopping it, quoting the client, and refreshing. It needed to match how sales think about price and direction during a live trade.</p>
+
+    <figure style="margin:1.5rem 0;display:flex;flex-direction:column;align-items:center;">
+      <div style="background:#111;border-radius:6px;padding:1.25rem;">
+        <img src="rfq-panel-flow.gif" alt="RFQ panel flow from draft through quote to execution" style="width:320px;border-radius:4px;display:block;" />
+      </div>
+      <figcaption style="font-size:0.72rem;color:var(--text-body);margin-top:0.5rem;text-align:center;">The RFQ panel flow: direction selection, quote request, markup, and all-in level through the live trade.</figcaption>
+    </figure>
 
     <h3>Methodology</h3>
     <p>I used two methods to cover breadth and depth:</p>
@@ -809,7 +829,7 @@
     <p>The discovery research was the most valuable investment. Floor observations and interviews gave me a level of understanding that no requirements document could have provided. When I could speak to a salesperson's workflow in their own language, the resistance dropped.</p>
 
     <h3>What I'd do differently</h3>
-    <p><strong>See the other flows through to testing.</strong> Usability testing covered the vanilla IRS flow, which was the right place to start. As the product expanded to more complex instruments, swaptions and multi-leg strategies, those flows went straight to engineering without the same validation. I'd push to test each new flow before handoff. The vanilla flow had a 59% failure rate on one task. Finding that in production is a risk I'd want to avoid.</p>
+    <p><strong>See the other flows through to testing.</strong> Usability testing covered the vanilla IRS flow, which was the right place to start. As the product expanded to swaptions and multi-leg strategies, those flows went straight to engineering without the same validation. I'd push to test each new flow before handoff.</p>
     <p><strong>Push for richer metrics in regular reporting.</strong> The numbers tracked so far, user count and percentage of volume automated, tell you adoption, not quality. I'd want reporting to include benchmark metrics: how the platform compares to the voice and chat workflows it replaced in speed, error rate, and re-quote frequency. That's the data that shows whether the design is actually working.</p>
   </div>
 

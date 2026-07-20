@@ -238,6 +238,17 @@
     border-bottom: 1px solid rgba(247,246,243,0.2);
   }
   .case-footer a:hover { color: #f7f6f3; border-bottom-color: #f7f6f3; }
+
+  @media (max-width: 640px) {
+    .content { padding: 0 1.5rem; }
+    .hero { padding: 3rem 1.5rem 0; }
+    .meta-grid { grid-template-columns: 1fr 1fr; }
+    .outcome-bar { grid-template-columns: 1fr !important; }
+    .callouts { grid-template-columns: 1fr; }
+    div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+    div[style*="display:flex;gap:2rem"] { flex-direction: column; }
+    .journey-scroll { overflow-x: auto; }
+  }
 </style>
 </head>
 <body>
@@ -402,7 +413,18 @@
       .decision-box .decision-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: #888; margin-bottom: 0.4rem; }
       .decision-box p { font-size: 0.9rem; color: #222; margin: 0; line-height: 1.65; }
       .decision-box strong { color: #000; }
-    </style>
+    
+  @media (max-width: 640px) {
+    .content { padding: 0 1.5rem; }
+    .hero { padding: 3rem 1.5rem 0; }
+    .meta-grid { grid-template-columns: 1fr 1fr; }
+    .outcome-bar { grid-template-columns: 1fr !important; }
+    .callouts { grid-template-columns: 1fr; }
+    div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+    div[style*="display:flex;gap:2rem"] { flex-direction: column; }
+    .journey-scroll { overflow-x: auto; }
+  }
+</style>
 
     <div class="wf-option">
       <div class="wf-option-header">
@@ -557,7 +579,7 @@
 
     <h3 style="margin-top:2rem;">Reflection</h3>
 
-    <p>I'm glad I insisted on the research sessions, even when they were scrappy. The trader interviews that hit a wall. The pivot to the engineering team. Drawing the workflow diagram live during demos. None of it followed a textbook process, but it produced the insights that shaped the entire product.</p>
+    <p>I'm glad I insisted on research, even when it was scrappy. None of it followed a textbook process, but it produced the insights that shaped the entire product.</p>
     <p>The design review wasn't a formal usability study. It was three conversations with people who would actually use the product, conducted under real time constraints. What came out of it reshaped our priorities: bulk bidding became the focus of iteration 2, and the remaining two findings, around action irreversibility and platform attention, informed the status label revisions and identified opportunities we're still working toward.</p>
 
     <h3>What I'd do differently</h3>
