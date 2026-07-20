@@ -466,38 +466,17 @@
   <div class="section">
     <p class="section-label">Scoping</p>
     <h2>Knowing what not to build first</h2>
-    <p>Rates derivatives covers a wide spectrum, from plain vanilla interest rate swaps to highly customized non-linear instruments. Building for all of it on day 1 wasn't feasible. The scoping decision was grounded in research friction data and trade volume.</p>
-
-    <div class="scope-grid">
-      <div class="scope-card selected">
-        <div class="scope-tag">Day 1 — Selected</div>
-        <h4>Standard Swaps (IRS)</h4>
-        <p>The most commonly traded product with predictable fields and high volume.</p>
-        <div class="scope-detail"><strong>Volume:</strong> Majority of trades</div>
-        <div class="scope-detail"><strong>Complexity:</strong> Moderate, predictable fields</div>
-        <div class="scope-detail"><strong>Dev effort:</strong> Lower, faster to ship</div>
-      </div>
-      <div class="scope-card">
-        <div class="scope-tag later">Later Phase</div>
-        <h4>Non-linear / Complex Swaps</h4>
-        <p>Heavily customized instruments requiring specialized structuring.</p>
-        <div class="scope-detail"><strong>Volume:</strong> Smaller share</div>
-        <div class="scope-detail"><strong>Complexity:</strong> High, heavy customization</div>
-        <div class="scope-detail"><strong>Dev effort:</strong> Significantly higher</div>
-      </div>
-    </div>
+    <p>Rates derivatives spans plain vanilla swaps to highly customized instruments. Building for all of it on day 1 wasn't feasible, so we started with <strong>standard swaps</strong>.</p>
 
     <div style="background:var(--bg-warm);border:1px solid var(--border);border-left:3px solid var(--accent);padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 4px 4px 0;">
       <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:var(--accent-muted);margin-bottom:0.5rem;">From the research</div>
       <div style="display:flex;flex-direction:column;gap:0.5rem;">
         <div style="font-size:0.95rem;color:var(--accent);font-style:italic;line-height:1.6;">"The basic swap flow can be automated."</div>
         <div style="font-size:0.95rem;color:var(--accent);font-style:italic;line-height:1.6;">"I don't model standard swaps."</div>
-        <div style="font-size:0.95rem;color:var(--accent);font-style:italic;line-height:1.6;">"Takes very long to quote certain swaps (e.g. fly)."</div>
       </div>
-      <div style="font-size:0.72rem;color:var(--text-muted);margin-top:0.5rem;">Salespeople consistently distinguished between trades that needed structuring and trades that just needed speed. This confirmed standard swaps as the right starting point.</div>
     </div>
 
-    <p>Standard swaps account for the majority of trading volume. Research confirmed salespeople didn't need to model them, just execute them fast. On the client side, standard swaps are also what clients trade most, and the trades they're most likely to self-serve: structuring complex trades themselves is time-consuming and error-prone, so those stay with sales. Starting here meant <strong>delivering real value quickly</strong> while the complex instruments were scoped for later phases.</p>
+    <p>The rationale: standard swaps are the <strong>majority of trading volume</strong>, salespeople just need to execute them fast, and they're what clients trade most and will most likely self-serve. Complex instruments stay with sales and were scoped for later phases.</p>
   </div>
 
   <!-- DESIGN: MODULAR ARCHITECTURE -->
